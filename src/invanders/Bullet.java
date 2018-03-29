@@ -41,8 +41,5 @@ public class Bullet extends MovingObject {
         Rectangle bulletHitbox = new Rectangle(xPosition, yPosition, 7, 15);
         return bulletHitbox;
     }   
-    
-    
-    
-    
+
 }
