@@ -12,7 +12,7 @@ import Controller.KeyboardController;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 public abstract class ControlledObject extends Object implements Moveable{
     

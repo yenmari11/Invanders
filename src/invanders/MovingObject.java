@@ -9,7 +9,7 @@ package invanders;
 import java.awt.Color;
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 public abstract class MovingObject extends Object implements Moveable{
     

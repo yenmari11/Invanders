@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis
  */
 public class KeyboardController implements KeyListener {
     

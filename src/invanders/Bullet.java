@@ -11,7 +11,7 @@ import java.awt.Rectangle;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 public class Bullet extends MovingObject {
     

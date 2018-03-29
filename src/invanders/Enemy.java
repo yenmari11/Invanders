@@ -7,7 +7,7 @@ package invanders;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 class Enemy {
     

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 public class Frame extends JFrame 
 {

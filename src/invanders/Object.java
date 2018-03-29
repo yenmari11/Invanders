@@ -10,7 +10,7 @@ import java.awt.Rectangle;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 public abstract class Object implements Drawable {
   

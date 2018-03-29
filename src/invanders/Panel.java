@@ -29,7 +29,7 @@ import sun.audio.AudioStream;
 
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
  */
 class Panel extends JPanel {
     
