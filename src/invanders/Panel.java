@@ -6,6 +6,7 @@
 package invanders;
 
 import Controller.KeyboardController;
+import List.SimpleList;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,6 +21,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,10 +34,13 @@ import sun.audio.AudioStream;
  *
  * @author Yendry Diaz Solis.
  */
-class Panel extends JPanel {
+public class Panel extends JPanel {
     
     private Timer timer;
     private KeyboardController controller;
+    //public static  SimpleList simpleList;
+    SimpleList simpleList = new SimpleList();
+
     
     private final int Width = 800;
     private final int Height = 800;
@@ -58,30 +64,201 @@ class Panel extends JPanel {
     
     
         // Added Booleans
-    //private boolean newBulletCanFire = true;
-    //private boolean newBeamCanFire = true;
-    //private boolean newBonusEnemy = true;
+    private boolean newBulletCanFire = true;
+    private boolean newBeamCanFire = true;
     private boolean hitMarker = false;
     
 
     private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
+    
+    
+        // Added Audio files and streams
+   // private File beamSound = new File("sounds/alienBeam.wav");
+    private final File bulletSound = new File("sounds/bulletSound.wav");
+   // private File levelUpSound = new File("sounds/levelUpSound.wav");
+    //private File deathSound = new File("sounds/deathSound.wav");
+    //private File hitmarkerSound = new File("sounds/hitmarkerSound.wav");
+    //private File shieldSound = new File("sounds/shieldSound.wav");
+    //private File bossSound = new File("sounds/bossSound.wav");
+    //private File bonusSound = new File("sounds/bonusSound.wav");
+     //private File damageSound = new File("sounds/damageSound.wav");
+   // private AudioStream beamSoundAudio;
+    //private InputStream beamSoundInput;
+    private AudioStream bulletSoundAudio;
+    private InputStream bulletSoundInput;
+  //  private AudioStream levelUpSoundAudio;
+   // private InputStream levelUpSoundInput;
+    //private AudioStream deathSoundAudio;
+   // private InputStream deathSoundInput;
+   // private AudioStream hitSoundAudio;
+   // private InputStream hitSoundInput;
+    //private AudioStream shieldSoundAudio;
+    //private InputStream shieldSoundInput;
+    //private AudioStream bossSoundAudio;
+    //private InputStream bossSoundInput;
+    //private AudioStream bonusSoundAudio;
+    //private InputStream bonusSoundInput;
+    //private AudioStream damageSoundAudio;
+    //private InputStream damageSoundInput;
 
     
     
     public final void setup(){
         
-        if (level == 1){
+        if (level == level){//0
             JOptionPane.showMessageDialog(null, "Welcome to Invaders!\n\nTHINGS TO KNOW:\n\n- Use left/right arrow keys to move\n- Press spacebar to shoot\n- The enemies get faster every level"
                     + "\n- BOSS every 3 levels\n- A bonus enemy will appear randomly\n- Shoot it for extra points!\n- Press R to reset high score\n- All pixel art is original\n- PLAY WITH SOUND\n\nHAVE FUN!");
         }
-        if (level == 2){
+        if (level == 1){
+            for (int yPosition=10;  yPosition< 370; yPosition+=20) {
+                for(int xPosition=0; xPosition < 400; xPosition+=20 ){
+                    enemy = new Enemy(xPosition , yPosition, level, level, null); // Enemy speed will increase each level
+                    simpleList.add(enemy);
+                    
+                }
+                
+               
+            }
+            System.out.println( simpleList.CalcularTamaño() );
+            System.out.println( "tamaño de lista" );
+        }
             
+           
+            
+ 
+        
+        
+        
+        
+        // Resets all controller movement
+        controller.resetController();
+
+        // Sets the player's ship values   
+        player = new Player(375, 730, null, controller);
+        
        
-            
+        
+        
+    }
+        
+        ///////////////////////// PAINT
+   
+    @Override
+    public void paint(Graphics g) 
+    {
+       
+        // Sets background image
+        background.paintIcon(null, g, 0, -150);
+
+        // Draws the player's ship
+        player.draw(g);  
+        
+        
+              //Draws aliens
+        try {
+            System.out.println( simpleList.getSize() );
+            for (int index = 0; index < simpleList.getSize(); index++) {
+                
+                simpleList.getInPosition(index).getEnemy().draw(g);
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+        } catch (Exception ex) {
+            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+         // Draw a bullet on space bar press
+        if (controller.getKeyStatus(32)) {
+            if (newBulletCanFire) {
+                bullet = new Bullet(player.getXPosition() + 22, player.getYPosition() - 20, 0, Color.RED);
+                //AudioPlayer.player.start(bulletSoundAudio); // Plays bullet sound
+                newBulletCanFire = false;
+            }
+        }
+        // Only attempts to draw bullet after key press
+        if (bullet != null) {
+            bullet.draw(g);
+        }
+        
+        
+          // Sets the score display
+        g.setColor(Color.WHITE);
+        g.drawString("Score: " + score, 260, 20);
+        
+          // Sets level display
+        g.setColor(Color.WHITE);
+        g.drawString("Level " + level, 750, 20);
+        
+          // Sets Highscore display
+        g.setColor(Color.WHITE);
+        g.drawString("Highscore: " + highScore, 440, 20);
+        
+        
+     }
+    
+    /////////// END PAINT
+    
+    
+       //////////////////////////////////// UPDATE STATE
+    
+    public void updateState(int frame)
+    {
+        // Allows player to move left and right
+        player.move();
+
+        // Updates highscore
+        try {
+            Scanner fileScan = new Scanner(f);
+            while (fileScan.hasNextInt()) {
+                String nextLine = fileScan.nextLine();
+                Scanner lineScan = new Scanner(nextLine);
+                highScore = lineScan.nextInt();
+            }
+        } catch (FileNotFoundException e) {
+        }
+        // Adds option to reset highScore
+        if (controller.getKeyStatus(82)) {
+            int answer = JOptionPane.showConfirmDialog(null, "Would you like to reset the high score?", ":)", 0);
+            controller.resetController();
+            if (answer == 0) {
+                try {
+                    String scoreString = Integer.toString(0);
+                    try (PrintWriter printerWriter = new PrintWriter(new FileOutputStream(f, false))) {
+                        printerWriter.write(scoreString);
+                    }
+                } catch (FileNotFoundException e) {
+                }
+            }
+        }
+        // Updates the high score text file if your score exceeds the previous high score
+        try {
+            if (score > highScore) {
+                String scoreString = Integer.toString(score);
+                try (PrintWriter printerWriter = new PrintWriter(new FileOutputStream(f, false))) {
+                    printerWriter.write(scoreString);
+                }
+            }
+        } catch (FileNotFoundException e) {
+        }
+        
+        // Move bullet
+        if (bullet != null) 
+        {
+            bullet.setYPosition(bullet.getYPosition() - 15);
+            if (bullet.getYPosition() < 0)
+            {
+                newBulletCanFire = true;
+            }
+        
         }
         
         
     }
+    ////////////////////////////////////END UPDATE STATE
+    
+     /////////////////////////////////////////////////////// PANEL      
+    
      public Panel() {
         // Set the size of the Panel
         this.setSize(Width, Height);
@@ -98,12 +275,15 @@ class Panel extends JPanel {
         this.requestFocusInWindow();
     }
     
-    public void updateState(int i) 
-    {
-                
-    }
+
     
-    void start() {
+    
+    /**
+     * Method to start the Timer that drives the animation for the game. It is
+     * not necessary for you to modify this code unless you need to in order to
+     * add some functionality.
+     */
+   public void start() {
              // Set up a new Timer to repeat every 20 milliseconds (50 FPS)
         timer = new Timer(1000 / framesPerSecond, new ActionListener() {
 
