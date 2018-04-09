@@ -12,22 +12,22 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Yendry Diaz Solis.
+ * @author yenma
  */
-public class Enemy extends MovingObject {
+public class EnemyR extends MovingObject {
     
-    ImageIcon alien1 = new ImageIcon("images/alien1.gif");
-    
+    ImageIcon alienR = new ImageIcon("images/alienR.gif");
     
     private int width;
     private int height;
-
-    public Enemy(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int width, int height) {
+    
+    public EnemyR(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int width, int height) {
         super(xPosition, yPosition, xVelocity, yVelocity, color);
         this.width = width;
         this.height = height;
     }
-
+    
+    
     @Override
     public Rectangle getBounds() {
         Rectangle enemyHitBox = new Rectangle(this.getXPosition(), this.getYPosition());
@@ -41,11 +41,9 @@ public class Enemy extends MovingObject {
 
     @Override
     public void draw(Graphics g) {
-       
-            alien1.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-       
-       
+
+            alienR.paintIcon(null, g, this.getXPosition(), this.getYPosition());
 
     }
-
+    
 }

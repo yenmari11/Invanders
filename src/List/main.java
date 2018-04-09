@@ -40,7 +40,7 @@ public class main {
         
 
         System.out.println("\nConsulta si la lista está vacia");
-        System.out.println(lista.esVacia());
+        System.out.println(lista.isEmpty());
         
         System.out.println("\n\n<<-- Fin de ejemplo lista simple -->>");
     }   

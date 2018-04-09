@@ -6,8 +6,6 @@
 package List;
 
 import invanders.Enemy;
-import java.awt.Color;
-import java.awt.Graphics;
 
 
 /**
@@ -51,11 +49,5 @@ public class Nodo {
     public void setNext(Nodo next){
        this.next = next; 
     }
-
-   
-
-   
-
-
 
 }

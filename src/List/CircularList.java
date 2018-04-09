@@ -1,26 +1,31 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package List;
 
 import invanders.Enemy;
 
 /**
  *
- * @author Yendry Diaz Solis
+ * @author yenma
  */
-
-public class SimpleList {
-
-
+public class CircularList {
+    
     // Puntero que indica el inicio de la lista o conocida tambien
     // como cabeza de la lista.
     private Nodo first;
+    // Puntero que indica el final de la lista o el ultimo nodo.
+    private Nodo last;   
     // Variable para registrar el tamaño de la lista.
     private int size;
      /**
      * Constructor por defecto.
      */
-    public void SimpleList (){
+    public void CircularList (){
         first = null;
+        last = null;
         size = 0;
     }
       /**
@@ -30,17 +35,10 @@ public class SimpleList {
     public boolean isEmpty(){
         return first == null;
     }
-    /**
-     * Consulta cuantos elementos (nodos) tiene la lista.
-     * @return numero entero entre [0,n] donde n es el numero de elementos
-     * que contenga la lista.
-     */
-    //public int Size(){
-      //  return size;
-    //}
+
 /**
      * Agrega un nuevo nodo al inicio de la lista.
-     * @param valor
+     * @param enemy
      */   
     public void add(Enemy enemy){
         
@@ -52,12 +50,16 @@ public class SimpleList {
         if (isEmpty()) {
             // Inicializa la lista agregando como inicio al nuevo nodo.
             first = New;
+            last = New;
+            // Y el puntero del ultimo debe apuntar al primero.
+            last.setNext(first);
         // Caso contrario va agregando los nodos al inicio de la lista.
         } else{
             // Une el nuevo nodo con la lista existente.
             New.setNext(first);
             // Renombra al nuevo nodo como el inicio de la lista.
             first = New;
+            last.setNext(first);
         }
         // Incrementa el contador de tamaño de la lista.
         size++;
@@ -75,6 +77,7 @@ public class SimpleList {
         boolean found = false;
         // Recorre la lista hasta encontrar el elemento o hasta 
         // llegar al final de la lista.
+ 
         while(aux != null && found != true){
             // Consulta si el valor del nodo es igual al de referencia.
             if (index == 0){
@@ -82,14 +85,15 @@ public class SimpleList {
                 found = true;
             }
             else{
-                // Avanza al siguiente. nodo.
+                // Avanza al siguiente nodo.
                 aux = aux.getNext();
             }
         }
-    
         // Retorna el resultado de la bandera.
         return found;
     }
+
+
     
     public int Size (){
         return size;
@@ -115,6 +119,8 @@ public class SimpleList {
             if(index == 0){
                 // Elimina el primer nodo apuntando al siguinte.
                 first = first.getNext();
+                // Apuntamos con el ultimo nodo de la lista al inicio.
+                last.setNext(first);
             }
             // En caso que el nodo a eliminar este por el medio 
             // o sea el ultimo
@@ -125,11 +131,19 @@ public class SimpleList {
                 for (int i = 0; i < index-1; i++) {
                     aux = aux.getNext();
                 }
-                // Guarda el nodo siguiente al nodo a eliminar.
-                Nodo next = aux.getNext();
-                // Elimina la referencia del nodo apuntando al nodo siguiente.
-                aux.setNext(next.getNext());
+                if (aux.getNext() == last) {
+                    aux.setNext(first);
+                    last = aux;
+                } else {
+                    // Guarda el nodo siguiente del nodo a eliminar.
+                    Nodo next = aux.getNext();
+                    // Enlaza el nodo anterior al de eliminar con el 
+                    // sguiente despues de el.
+                    aux.setNext(next.getNext());  
+                    // Actualizamos el puntero del ultimo nodo
+                }
             }
+
             // Disminuye el contador de tamaño de la lista.
             size--;
         }
@@ -143,38 +157,42 @@ public class SimpleList {
      */
     public Nodo getInPosition(int index) throws Exception{
         // Consulta si el valor existe en la lista.
-        if(index < this.size){
-                    // Crea una copia de la lista.
-            Nodo aux = first;
-            // COntado para almacenar la posición del nodo.
-            
-            // Recoore la lista hasta llegar al nodo de referencia.
-            while( index >0 ){//&& aux != null ){
-                
-                aux = aux.getNext();
-                index -= 1;
+        if(index>=0 && index<size){
+            // Consulta si la posicion es el inicio de la lista.
+            if (index == 0) {
+                // Retorna el valor del inicio de la lista.
+                return first;
+            }else{
+                // Crea una copia de la lista.
+                Nodo aux = first;
+                // Recorre la lista hasta la posición ingresada.
+                for (int i = 0; i < index; i++) {
+                    aux = aux.getNext();
+                }
+                // Retorna el valor del nodo.
+                return aux;
             }
-            return aux;
+        // Crea una excepción de Posicion inexistente en la lista.
+        } else {
+            throw new Exception("Posicion inexistente en la lista.");
         }
-        else{
-            throw new Exception("Valor inexistente en la lista.");
-          
+ 
         }
-            // Retorna el valor del contador.
-        // Crea una excepción de Valor inexistente en la lista.
-   
-    }
-    
+
      /**
      * Elimina la lista
      */
     public void clear(){
         // Elimina el valor y la referencia a los demas nodos.
         first = null;
+        // Elimina el valor y la referencia al primer nodo.
+        last = null;
         // Reinicia el contador de tamaño de la lista a 0.
         size = 0;
     }
 
   
+    
+    
+    
 }
-

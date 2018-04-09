@@ -42,7 +42,6 @@ public abstract class MovingObject extends Object implements Moveable{
     {
         this.yVel = yVelocity;
     }
-    @Override
     
     // Used to move non controllable objects
     public void move()
