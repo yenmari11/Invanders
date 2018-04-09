@@ -13,11 +13,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
@@ -27,8 +24,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 /**
  *
@@ -38,7 +33,6 @@ public class Panel extends JPanel {
     
     private Timer timer;
     private KeyboardController controller;
-    //public static  SimpleList simpleList;
     SimpleList simpleList = new SimpleList();
 
     
@@ -70,36 +64,6 @@ public class Panel extends JPanel {
     
 
     private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
-    
-    
-        // Added Audio files and streams
-   // private File beamSound = new File("sounds/alienBeam.wav");
-    private final File bulletSound = new File("sounds/bulletSound.wav");
-   // private File levelUpSound = new File("sounds/levelUpSound.wav");
-    //private File deathSound = new File("sounds/deathSound.wav");
-    //private File hitmarkerSound = new File("sounds/hitmarkerSound.wav");
-    //private File shieldSound = new File("sounds/shieldSound.wav");
-    //private File bossSound = new File("sounds/bossSound.wav");
-    //private File bonusSound = new File("sounds/bonusSound.wav");
-     //private File damageSound = new File("sounds/damageSound.wav");
-   // private AudioStream beamSoundAudio;
-    //private InputStream beamSoundInput;
-    private AudioStream bulletSoundAudio;
-    private InputStream bulletSoundInput;
-  //  private AudioStream levelUpSoundAudio;
-   // private InputStream levelUpSoundInput;
-    //private AudioStream deathSoundAudio;
-   // private InputStream deathSoundInput;
-   // private AudioStream hitSoundAudio;
-   // private InputStream hitSoundInput;
-    //private AudioStream shieldSoundAudio;
-    //private InputStream shieldSoundInput;
-    //private AudioStream bossSoundAudio;
-    //private InputStream bossSoundInput;
-    //private AudioStream bonusSoundAudio;
-    //private InputStream bonusSoundInput;
-    //private AudioStream damageSoundAudio;
-    //private InputStream damageSoundInput;
 
     
     
@@ -110,16 +74,18 @@ public class Panel extends JPanel {
                     + "\n- BOSS every 3 levels\n- A bonus enemy will appear randomly\n- Shoot it for extra points!\n- Press R to reset high score\n- All pixel art is original\n- PLAY WITH SOUND\n\nHAVE FUN!");
         }
         if (level == 1){
-            for (int yPosition=10;  yPosition< 370; yPosition+=20) {
-                for(int xPosition=0; xPosition < 400; xPosition+=20 ){
-                    enemy = new Enemy(xPosition , yPosition, level, level, null); // Enemy speed will increase each level
+            for (int row = 0;  row< 7; row++) {
+                for (int column = 0; column < 1; column++) {
+                
+        
+                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,40,40); // Enemy speed will increase each level
                     simpleList.add(enemy);
                     
-                }
                 
+                }
                
             }
-            System.out.println( simpleList.CalcularTamaño() );
+            System.out.println( simpleList.Size() );
             System.out.println( "tamaño de lista" );
         }
             
@@ -154,11 +120,10 @@ public class Panel extends JPanel {
         player.draw(g);  
         
         
-              //Draws aliens
+              //Draws the aliens 
         try {
-            System.out.println( simpleList.getSize() );
-            for (int index = 0; index < simpleList.getSize(); index++) {
-                
+            //System.out.println( simpleList.Size() );
+            for (int index = 0; index < simpleList.Size(); index++) {
                 simpleList.getInPosition(index).getEnemy().draw(g);
             }
 
@@ -172,7 +137,7 @@ public class Panel extends JPanel {
         if (controller.getKeyStatus(32)) {
             if (newBulletCanFire) {
                 bullet = new Bullet(player.getXPosition() + 22, player.getYPosition() - 20, 0, Color.RED);
-                //AudioPlayer.player.start(bulletSoundAudio); // Plays bullet sound
+                
                 newBulletCanFire = false;
             }
         }
@@ -202,7 +167,7 @@ public class Panel extends JPanel {
     
        //////////////////////////////////// UPDATE STATE
     
-    public void updateState(int frame)
+    public void updateState(int frame) throws Exception
     {
         // Allows player to move left and right
         player.move();
@@ -241,6 +206,20 @@ public class Panel extends JPanel {
             }
         } catch (FileNotFoundException e) {
         }
+
+        
+        // Makes enemies move and change direction at borders
+        if ((simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXPosition() + simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXVelocity()) > 350 || (simpleList.getInPosition(0).getEnemy().getXPosition() + simpleList.getInPosition(0).getEnemy().getXVelocity()) < 420) {
+            for (int index = 0; index < simpleList.Size(); index++) {
+                simpleList.getInPosition(index).getEnemy().setXVelocity(simpleList.getInPosition(index).getEnemy().getXVelocity()*-1);
+                simpleList.getInPosition(index).getEnemy().setYPosition(simpleList.getInPosition(index).getEnemy().getYPosition()+10);
+            }
+        }else {
+            for (int index = 0; index < simpleList.Size(); index++) {
+                simpleList.getInPosition(index).getEnemy().move();
+            }
+        }
+        
         
         // Move bullet
         if (bullet != null) 
@@ -249,8 +228,69 @@ public class Panel extends JPanel {
             if (bullet.getYPosition() < 0)
             {
                 newBulletCanFire = true;
+                
             }
+           
+                      // Checks for collisions with enemies
+            for (int ind = 0; ind < simpleList.Size()-1; ind++) {
+                if (simpleList.getInPosition(ind).getEnemy().Colliding(bullet)) {
+                   System.out.println(simpleList.Size());
+
+                    bullet = new Bullet(0, 0, 0, null);
+                    newBulletCanFire = true;
+                    // Updates score for normal levels
+                    if (level==1){
+                        score += 100;
+                        hitMarker = true;
+                        markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
+                        markerY = simpleList.getInPosition(ind).getEnemy().getYPosition();
+                    
+                        simpleList.remove(ind);
+                        
+                    }
+               
+                } 
+                
+            } 
+        }
         
+        
+                //Destroys shields if aliens collide with them
+        for (int input = 0; input < simpleList.Size(); input++) {
+     
+            // If aliens exceed this X Position, you reset the level and lose a life
+            if (simpleList.getInPosition(input).getEnemy().getYPosition() + 50 >= 750) {
+                simpleList.clear();
+         
+                numberOfLives = 0;
+               
+            
+            }
+        }
+        if (numberOfLives ==0) {
+          
+            int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You lost the game with " + score + " points", 0);
+            // If they choose to play again, this resets every element in the game
+            if (answer == 0) {
+                simpleList.clear();
+                score = 0;
+                level = 1;
+                numberOfLives = 1;
+                newBulletCanFire = true;
+                newBeamCanFire = true;
+                setup();
+            }
+            // If they choose not to play again, it closes the game
+            if (answer == 1) {
+                System.exit(0);
+            }
+        }
+        
+       // Goes to next level, resets all lists, sets all counters to correct values
+        if (simpleList!=null) {
+        } else {
+            level += 1;
+            setup();
         }
         
         
@@ -293,8 +333,12 @@ public class Panel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Update the game's state and repaint the screen
-                updateState(frameNumber++);
+                try {
+                    // Update the game's state and repaint the screen
+                    updateState(frameNumber++);
+                } catch (Exception ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 repaint();
             }
 

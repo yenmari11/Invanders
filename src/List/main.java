@@ -20,27 +20,23 @@ public class main {
         SimpleList lista = new SimpleList();
         
         System.out.println("<<-- Ejemplo de lista simple -->>\n");
-        Enemy enemy = new Enemy(58,58,2,2,null);
-        Enemy enemy1 = new Enemy(58,58,2,2,null);
-        Enemy enemy2 = new Enemy(58,58,2,2,null);
+     
         
- 
+   
 
-        lista.add(enemy);
-        lista.add(enemy1);
-        lista.add(enemy2);
+     
         System.out.println("<<-- Lista -->>");
        // lista.listar();
         
         System.out.println("\n\n<<-- Tamaño -->");
-        System.out.println(lista.getSize());
+        System.out.println(lista.Size());
         
     
         System.out.println("\nElimina el nodo en la posición 1");
         lista.getInPosition(1);        
         //lista.listar();
         System.out.print(" | Tamaño: ");
-        System.out.println(lista.getSize());
+        System.out.println(lista.Size());
         
 
         System.out.println("\nConsulta si la lista está vacia");

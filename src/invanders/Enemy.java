@@ -20,11 +20,14 @@ public class Enemy extends MovingObject {
     ImageIcon alienBoss = new ImageIcon("images/alienBoss.gif");
     ImageIcon alienR = new ImageIcon("images/alienR.gif");
     
+    
+    private int width;
+    private int height;
 
-    public Enemy(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color) {
+    public Enemy(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int width, int height) {
         super(xPosition, yPosition, xVelocity, yVelocity, color);
-    
-    
+        this.width = width;
+        this.height = height;
     }
 
     @Override

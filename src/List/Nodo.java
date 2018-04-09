@@ -6,7 +6,9 @@
 package List;
 
 import invanders.Enemy;
+import java.awt.Color;
 import java.awt.Graphics;
+
 
 /**
  *
@@ -18,13 +20,14 @@ public class Nodo {
     private Enemy enemy;
     // Variable para enlazar los nodos.
     private Nodo next;
-    
+
     /**
      * Constructor que inicializamos el valor de las variables.
      */
     public void Nodo(Enemy enemy){
         this.enemy = enemy;
         this.next = null;
+       
     } 
     
     
@@ -48,6 +51,11 @@ public class Nodo {
     public void setNext(Nodo next){
        this.next = next; 
     }
+
+   
+
+   
+
 
 
 }
