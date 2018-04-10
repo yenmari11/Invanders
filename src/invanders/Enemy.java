@@ -28,9 +28,11 @@ public class Enemy extends MovingObject {
         this.height = height;
     }
 
+
+// Gets the hitbox for normal eneimes
     @Override
     public Rectangle getBounds() {
-        Rectangle enemyHitBox = new Rectangle(this.getXPosition(), this.getYPosition());
+        Rectangle enemyHitBox = new Rectangle(this.getXPosition(), this.getYPosition(),width, height);
         return enemyHitBox;
     }
     

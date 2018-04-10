@@ -69,10 +69,7 @@ public class Panel extends JPanel {
     
     public final void setup(){
         
-        if (level == level){//0
-            JOptionPane.showMessageDialog(null, "Welcome to Invaders!\n\nTHINGS TO KNOW:\n\n- Use left/right arrow keys to move\n- Press spacebar to shoot\n- The enemies get faster every level"
-                    + "\n- BOSS every 3 levels\n- A bonus enemy will appear randomly\n- Shoot it for extra points!\n- Press R to reset high score\n- All pixel art is original\n- PLAY WITH SOUND\n\nHAVE FUN!");
-        }
+    
         if (level == 1){
             for (int row = 0;  row< 7; row++) {
                 for (int column = 0; column < 1; column++) {
@@ -80,13 +77,19 @@ public class Panel extends JPanel {
         
                     enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,40,40); // Enemy speed will increase each level
                     simpleList.add(enemy);
-                    
-                
-                }
-               
+                } 
             }
-            System.out.println( simpleList.Size() );
-            System.out.println( "tamaño de lista" );
+        }
+        if(level==2){
+            for (int row = 0;  row< 7; row++) {
+                for (int column = 0; column < 1; column++) {
+                
+        
+                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,40,40); // Enemy speed will increase each level
+                    simpleList.add(enemy);
+                } 
+            }
+            
         }
             
            
@@ -122,7 +125,7 @@ public class Panel extends JPanel {
         
               //Draws the aliens 
         try {
-            //System.out.println( simpleList.Size() );
+         
             for (int index = 0; index < simpleList.Size(); index++) {
                 simpleList.getInPosition(index).getEnemy().draw(g);
             }
@@ -209,10 +212,10 @@ public class Panel extends JPanel {
 
         
         // Makes enemies move and change direction at borders
-        if ((simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXPosition() + simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXVelocity()) > 350 || (simpleList.getInPosition(0).getEnemy().getXPosition() + simpleList.getInPosition(0).getEnemy().getXVelocity()) < 420) {
+        if ((simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXPosition() + simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXVelocity()) > 760 || (simpleList.getInPosition(0).getEnemy().getXPosition() + simpleList.getInPosition(0).getEnemy().getXVelocity()) < 0) {
             for (int index = 0; index < simpleList.Size(); index++) {
-                simpleList.getInPosition(index).getEnemy().setXVelocity(simpleList.getInPosition(index).getEnemy().getXVelocity()*-1);
-                simpleList.getInPosition(index).getEnemy().setYPosition(simpleList.getInPosition(index).getEnemy().getYPosition()+10);
+                simpleList.getInPosition(index).getEnemy().setXVelocity(simpleList.getInPosition(index).getEnemy().getXVelocity() * -1);
+                simpleList.getInPosition(index).getEnemy().setYPosition(simpleList.getInPosition(index).getEnemy().getYPosition() + 10);
             }
         }else {
             for (int index = 0; index < simpleList.Size(); index++) {
@@ -232,22 +235,26 @@ public class Panel extends JPanel {
             }
            
                       // Checks for collisions with enemies
-            for (int ind = 0; ind < simpleList.Size()-1; ind++) {
-                if (simpleList.getInPosition(ind).getEnemy().Colliding(bullet)) {
-                   System.out.println(simpleList.Size());
-
+            for (int ind = 0; ind < simpleList.Size(); ind++) {
+                if (bullet.Colliding(simpleList.getInPosition(ind).getEnemy())) {
+                   
+                   
                     bullet = new Bullet(0, 0, 0, null);
+                   //bullet=null;
                     newBulletCanFire = true;
                     // Updates score for normal levels
+                    
                     if (level==1){
                         score += 100;
                         hitMarker = true;
                         markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
                         markerY = simpleList.getInPosition(ind).getEnemy().getYPosition();
-                    
                         simpleList.remove(ind);
+                        System.out.println(simpleList.Size());
+                        
                         
                     }
+                
                
                 } 
                 
@@ -287,11 +294,12 @@ public class Panel extends JPanel {
         }
         
        // Goes to next level, resets all lists, sets all counters to correct values
-        if (simpleList!=null) {
-        } else {
+        if (simpleList.isEmpty()) {
             level += 1;
             setup();
-        }
+        } 
+            
+        
         
         
     }
@@ -344,16 +352,12 @@ public class Panel extends JPanel {
 
      
         });
-        Timer TimerHitMarker = new Timer(1000, new ActionListener() {
-
-            // Tracks the number of frames that have been produced.
-            // May be useful for limiting action rates
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Update the game's state and repaint the screen
-                hitMarker = false;
-            }
-        });
+        Timer TimerHitMarker = new Timer(1000, (ActionEvent e) -> {
+            // Update the game's state and repaint the screen
+            hitMarker = false;
+        } // Tracks the number of frames that have been produced.
+        // May be useful for limiting action rates
+        );
 
         timer.setRepeats(true);
         timer.start();

@@ -13,7 +13,7 @@ public class SimpleList {
 
     // Puntero que indica el inicio de la lista o conocida tambien
     // como cabeza de la lista.
-    private Nodo first;
+    private Node first;
     // Variable para registrar el tamaño de la lista.
     private int size;
      /**
@@ -40,12 +40,11 @@ public class SimpleList {
     //}
 /**
      * Agrega un nuevo nodo al inicio de la lista.
-     * @param valor
      */   
     public void add(Enemy enemy){
         
         // Define un nuevo nodo.
-        Nodo New = new Nodo();
+        Node New = new Node();
         // Agrega al valor al nodo.
         New.setEnemy(enemy);
         // Consulta si la lista esta vacia.
@@ -54,14 +53,21 @@ public class SimpleList {
             first = New;
         // Caso contrario va agregando los nodos al inicio de la lista.
         } else{
-            // Une el nuevo nodo con la lista existente.
-            New.setNext(first);
-            // Renombra al nuevo nodo como el inicio de la lista.
-            first = New;
+            // Crea ua copia de la lista.
+            Node aux = first;
+            // Recorre la lista hasta llegar al ultimo nodo.
+            while(aux.getNext() != null){
+                aux = aux.getNext();
+            }
+            // Agrega el nuevo nodo al final de la lista.
+            aux.setNext(New);
         }
+
         // Incrementa el contador de tamaño de la lista.
         size++;
     }
+    
+    
  
 /**
      * Busca si existe un valor en la lista.
@@ -70,7 +76,7 @@ public class SimpleList {
      */
     public boolean search(int index){
         // Crea una copia de la lista.
-        Nodo aux = first;
+        Node aux = first;
         // Bandera para indicar si el valor existe.
         boolean found = false;
         // Recorre la lista hasta encontrar el elemento o hasta 
@@ -120,13 +126,13 @@ public class SimpleList {
             // o sea el ultimo
             else{
                 // Crea una copia de la lista.
-                Nodo aux = first;
+                Node aux = first;
                 // Recorre la lista hasta lleger al nodo anterior al eliminar.
                 for (int i = 0; i < index-1; i++) {
                     aux = aux.getNext();
                 }
                 // Guarda el nodo siguiente al nodo a eliminar.
-                Nodo next = aux.getNext();
+                Node next = aux.getNext();
                 // Elimina la referencia del nodo apuntando al nodo siguiente.
                 aux.setNext(next.getNext());
             }
@@ -135,17 +141,26 @@ public class SimpleList {
         }
     }
 
+    public int getSize(){
+        int counter = 0;
+        Node aux = first;
+        while(aux != null){
+            aux = aux.getNext();
+            counter++;
+        }
+        return counter;
+    }
     /**
      * Obtiene el nodo en x posición de la lista
      * @param index
      * @return Un nodo.
      * @throws Exception
      */
-    public Nodo getInPosition(int index) throws Exception{
+    public Node getInPosition(int index) throws Exception{
         // Consulta si el valor existe en la lista.
         if(index < this.size){
                     // Crea una copia de la lista.
-            Nodo aux = first;
+            Node aux = first;
             // COntado para almacenar la posición del nodo.
             
             // Recoore la lista hasta llegar al nodo de referencia.
@@ -176,5 +191,6 @@ public class SimpleList {
     }
 
   
+   
 }
 

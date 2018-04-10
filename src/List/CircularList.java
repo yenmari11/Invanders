@@ -15,9 +15,9 @@ public class CircularList {
     
     // Puntero que indica el inicio de la lista o conocida tambien
     // como cabeza de la lista.
-    private Nodo first;
+    private Node first;
     // Puntero que indica el final de la lista o el ultimo nodo.
-    private Nodo last;   
+    private Node last;   
     // Variable para registrar el tamaño de la lista.
     private int size;
      /**
@@ -43,7 +43,7 @@ public class CircularList {
     public void add(Enemy enemy){
         
         // Define un nuevo nodo.
-        Nodo New = new Nodo();
+        Node New = new Node();
         // Agrega al valor al nodo.
         New.setEnemy(enemy);
         // Consulta si la lista esta vacia.
@@ -72,7 +72,7 @@ public class CircularList {
      */
     public boolean search(int index){
         // Crea una copia de la lista.
-        Nodo aux = first;
+        Node aux = first;
         // Bandera para indicar si el valor existe.
         boolean found = false;
         // Recorre la lista hasta encontrar el elemento o hasta 
@@ -126,7 +126,7 @@ public class CircularList {
             // o sea el ultimo
             else{
                 // Crea una copia de la lista.
-                Nodo aux = first;
+                Node aux = first;
                 // Recorre la lista hasta lleger al nodo anterior al eliminar.
                 for (int i = 0; i < index-1; i++) {
                     aux = aux.getNext();
@@ -136,7 +136,7 @@ public class CircularList {
                     last = aux;
                 } else {
                     // Guarda el nodo siguiente del nodo a eliminar.
-                    Nodo next = aux.getNext();
+                    Node next = aux.getNext();
                     // Enlaza el nodo anterior al de eliminar con el 
                     // sguiente despues de el.
                     aux.setNext(next.getNext());  
@@ -155,7 +155,7 @@ public class CircularList {
      * @return Un nodo.
      * @throws Exception
      */
-    public Nodo getInPosition(int index) throws Exception{
+    public Node getInPosition(int index) throws Exception{
         // Consulta si el valor existe en la lista.
         if(index>=0 && index<size){
             // Consulta si la posicion es el inicio de la lista.
@@ -164,7 +164,7 @@ public class CircularList {
                 return first;
             }else{
                 // Crea una copia de la lista.
-                Nodo aux = first;
+                Node aux = first;
                 // Recorre la lista hasta la posición ingresada.
                 for (int i = 0; i < index; i++) {
                     aux = aux.getNext();

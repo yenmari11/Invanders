@@ -44,6 +44,7 @@ public abstract class MovingObject extends Object implements Moveable{
     }
     
     // Used to move non controllable objects
+    @Override
     public void move()
     {
         this.xPosition += xVel;
