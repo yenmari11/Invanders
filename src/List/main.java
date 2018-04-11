@@ -5,6 +5,7 @@
  */
 package List;
 
+import invanders.Boss;
 import invanders.Enemy;
 
 /**
@@ -21,9 +22,10 @@ public class main {
         
         System.out.println("<<-- Ejemplo de lista simple -->>\n");
         
-        Enemy enemy1 = new Enemy(0,0,0,0,null,0,0);
-           Enemy enemy3 = new Enemy(0,0,0,0,null,0,0);
-           Enemy enemy2 = new Enemy(0,0,0,0,null,0,0);
+        Enemy enemy1 = new Enemy(0,0,0,0,null,0, true,0,0);
+          Boss boss1 = new Boss(0,0,0,0,null,0,true,0,0);
+           Enemy enemy2 = new Enemy(0,0,0,0,null,0,true,0,0);
+             Boss boss2 = new Boss(0,0,0,0,null,0,true,0,0);
            
      
         
@@ -31,7 +33,7 @@ public class main {
 
         lista.add(enemy2);
      
-        lista.add(enemy3);
+        lista.add(boss1);
    
      
         System.out.println("<<-- Lista -->>");
@@ -44,9 +46,12 @@ public class main {
         
     
         System.out.println("\nElimina el nodo en la posición 1");
-          lista.remove(0);
-          lista.remove(1);
-          lista.remove(0);
+         // lista.remove(0);
+          //lista.remove(1);
+          //lista.remove(0);
+          lista.edit(0, boss2);
+           
+        
           
           
 

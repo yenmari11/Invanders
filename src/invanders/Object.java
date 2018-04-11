@@ -5,6 +5,7 @@
  */
 package invanders;
 
+
 import java.awt.Color;
 import java.awt.Rectangle;
 
@@ -17,7 +18,9 @@ public abstract class Object implements Drawable {
     int xPosition;
     int yPosition;
     Color color;
+  
     boolean Colliding;
+
     
     public Object(){};
     
@@ -26,6 +29,8 @@ public abstract class Object implements Drawable {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.color = color;
+   
+
     }
 
     public abstract Rectangle getBounds();
@@ -40,7 +45,7 @@ public abstract class Object implements Drawable {
         return yPosition;
     }
 
-    // Gets the color of any object
+      // Gets the color of any object
     public Color getColor() {
         return color;
     }
@@ -65,5 +70,6 @@ public abstract class Object implements Drawable {
         Colliding = other.getBounds().intersects(this.getBounds());
         return Colliding;
     }
+
     
 }

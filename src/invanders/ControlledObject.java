@@ -5,8 +5,9 @@
  */
 package invanders;
 
-import java.awt.Color;
+
 import Controller.KeyboardController;
+import java.awt.Color;
 
 
 
@@ -20,7 +21,7 @@ public abstract class ControlledObject extends Object implements Moveable{
     
     //constructor
     
-    public ControlledObject(int xPosition, int yPosition, Color color, KeyboardController control)
+    public ControlledObject(int xPosition, int yPosition,Color color, KeyboardController control)
     {
         super(xPosition, yPosition, color);
         this.control = control;

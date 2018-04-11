@@ -5,6 +5,7 @@
  */
 package invanders;
 
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -16,20 +17,38 @@ import javax.swing.ImageIcon;
  */
 public class Boss extends MovingObject  {
     
-    ImageIcon alienBoss = new ImageIcon("images/alienBoss.gif");
-        
     private int width;
     private int height;
+    private int vida =5;
+   private boolean vivo;
     
-    public Boss(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int width, int height) {
-        super(xPosition, yPosition, xVelocity, yVelocity, color);
+    
+    ImageIcon alienBoss = new ImageIcon("images/alienBoss.gif");
+
+    public Boss(int xPosition, int yPosition, int xVelocity, int yVelocity,Color color, int vida, boolean vivo, int width, int height) {
+        super(xPosition, yPosition, xVelocity, yVelocity, color, vida, vivo);
+        this.vida = vida;
         this.width = width;
         this.height = height;
+        
+    }
+     
+        @Override
+    public void actualizarPosicion(int xPosition, int yPosition){
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
     }
     
     @Override
+    public void actualizarVida(int vida){
+        this.vida = vida;
+    }
+        
+
+// Gets the hitbox for normal enemies
+    @Override
     public Rectangle getBounds() {
-        Rectangle enemyHitBox = new Rectangle(this.getXPosition(), this.getYPosition());
+        Rectangle enemyHitBox = new Rectangle(this.getXPosition(), this.getYPosition(), width, height);
         return enemyHitBox;
     }
     
@@ -37,13 +56,11 @@ public class Boss extends MovingObject  {
     public void move() {
         xPosition += xVel;
     }
-
+    
     @Override
-    public void draw(Graphics g) {
-       
-           alienBoss.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-
-
+    public void draw(Graphics g){
+        alienBoss.paintIcon(null, g, this.getXPosition(), this.getYPosition());
     }
+
     
 }

@@ -30,7 +30,7 @@ public class Frame extends JFrame
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
-        
+                // Start the game
         invaders.start();
         
     }

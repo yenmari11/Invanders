@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 public class Player extends ControlledObject {
     
     ImageIcon player = new ImageIcon("images/playerSkin.gif");
-    ImageIcon lifeCounter = new ImageIcon("images/playerSkinSmall.gif");
+    
 
      // Constructor for all ship objects
     public Player(int xPosition, int yPosition, Color color, KeyboardController control) {
@@ -26,11 +26,7 @@ public class Player extends ControlledObject {
     }
 
 
-    // Draw ships for life counter
-    public void lifeDraw(Graphics g) {
 
-        lifeCounter.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-    }
 
     // Draw player controlled ship
     @Override

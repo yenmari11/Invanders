@@ -40,8 +40,10 @@ public class Panel extends JPanel {
     private final int Height = 800;
     private final int framesPerSecond = 120;
     
-    Random r = new Random();
+
     private int score = 0;
+    private int limit = 6;
+    private int numberR = 0;
     private int level = 1;
     private int numberOfLives = 3;
     private int highScore;
@@ -53,6 +55,7 @@ public class Panel extends JPanel {
     private Player player;
     private Player singleLife;
     private Enemy enemy;
+    private Boss boss;
     //private Shield shield;
     private Bullet bullet;
     
@@ -75,19 +78,22 @@ public class Panel extends JPanel {
                 for (int column = 0; column < 1; column++) {
                 
         
-                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,40,40); // Enemy speed will increase each level
+                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,0,true,40,40); // Enemy speed will increase each level
                     simpleList.add(enemy);
                 } 
             }
         }
+      
+      
         if(level==2){
             for (int row = 0;  row< 7; row++) {
                 for (int column = 0; column < 1; column++) {
                 
         
-                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,40,40); // Enemy speed will increase each level
-                    simpleList.add(enemy);
-                } 
+                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,0,true,40,40); // Enemy speed will increase each level
+                    simpleList.add(enemy);  
+                }
+
             }
             
         }

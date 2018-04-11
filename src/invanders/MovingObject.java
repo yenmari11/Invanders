@@ -15,13 +15,18 @@ public abstract class MovingObject extends Object implements Moveable{
     
     int xVel;
     int yVel;
+    int vida = 1;
+    boolean vivo =true;
+
     
     // Constructor for any non controllable object
-    public MovingObject(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color)
+    public MovingObject(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int vida, boolean vivo)
     {
         super(xPosition, yPosition, color);
         this.xVel = xVelocity;
         this.yVel = yVelocity;
+        this.vida = vida;
+        this.vivo = vivo;
     
     }
     
@@ -50,4 +55,16 @@ public abstract class MovingObject extends Object implements Moveable{
         this.xPosition += xVel;
         this.yPosition += yVel;
     }
+        
+    void actualizarPosicion(int xPosition, int yPosition){
+        
+    }
+    
+    void actualizarVida(int vida){
+        
+    }
+    void restarVida(){
+        
+    }
+    
 }
