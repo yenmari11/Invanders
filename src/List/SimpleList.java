@@ -1,9 +1,8 @@
 
 package List;
 
-import invanders.Boss;
-import invanders.Enemy;
-import invanders.EnemyR;
+
+import invanders.MovingObject;
 
 /**
  *
@@ -44,7 +43,7 @@ public class SimpleList {
      * Agrega un nuevo nodo al inicio de la lista.
      * @param enemy
      */   
-    public void add(Enemy enemy){
+    public void add(MovingObject enemy){
         
         // Define un nuevo nodo.
         Node New = new Node();
@@ -71,65 +70,7 @@ public class SimpleList {
     }
     
     
-    /**
-     * Agrega un nuevo nodo al inicio de la lista.
-     * @param boss
-     */  
-    public void add(Boss boss){
-        
-        // Define un nuevo nodo.
-        Node New = new Node();
-        // Agrega al valor al nodo.
-        New.setBoss(boss);
-        // Consulta si la lista esta vacia.
-        if (isEmpty()) {
-            // Inicializa la lista agregando como inicio al nuevo nodo.
-            first = New;
-        // Caso contrario va agregando los nodos al inicio de la lista.
-        } else{
-            // Crea ua copia de la lista.
-            Node aux = first;
-            // Recorre la lista hasta llegar al ultimo nodo.
-            while(aux.getNext() != null){
-                aux = aux.getNext();
-            }
-            // Agrega el nuevo nodo al final de la lista.
-            aux.setNext(New);
-        }
 
-        // Incrementa el contador de tamaño de la lista.
-        size++;
-    }
-    
-    /**
-     * Agrega un nuevo nodo al inicio de la lista.
-     * @param enemyR
-     */   
-    public void add(EnemyR enemyR){
-        
-        // Define un nuevo nodo.
-        Node New = new Node();
-        // Agrega al valor al nodo.
-        New.setEnemyR(enemyR);
-        // Consulta si la lista esta vacia.
-        if (isEmpty()) {
-            // Inicializa la lista agregando como inicio al nuevo nodo.
-            first = New;
-        // Caso contrario va agregando los nodos al inicio de la lista.
-        } else{
-            // Crea ua copia de la lista.
-            Node aux = first;
-            // Recorre la lista hasta llegar al ultimo nodo.
-            while(aux.getNext() != null){
-                aux = aux.getNext();
-            }
-            // Agrega el nuevo nodo al final de la lista.
-            aux.setNext(New);
-        }
-
-        // Incrementa el contador de tamaño de la lista.
-        size++;
-    }
     
  
 /**
@@ -257,27 +198,27 @@ public class SimpleList {
      * Actualiza el valor de un nodo que se encuentre en la lista ubicado
      * por su posición.
      * @param numberR en la cual se encuentra el nodo a actualizar.
-     * @param boss nuevo valor para el nodo.
+     * @param enemy
      */
-    public void edit(int numberR , Boss boss){
+    public void edit(int numberR , MovingObject enemy){
         // Verifica si la posición ingresada se encuentre en el rango
         // >= 0 y < que el numero de elementos del la lista.
         if(numberR>=0 && numberR<size){
             // Consulta si el nodo a eliminar es el primero.
             if(numberR == 0){
                 // Alctualiza el valor delprimer nodo.
-                first.setBoss(boss);
+                first.setEnemy(enemy);
             }
             else{
                 // En caso que el nodo a eliminar este por el medio 
                 // o sea el ultimo
                 Node aux = first;
-                // Recorre la lista hasta lleger al nodo anterior al eliminar.
+                // Recorre la lista hasta llegar al nodo anterior al eliminar.
                 for (int i = 0; i < numberR; i++) {
                     aux = aux.getNext();
                 }
                 // Alctualiza el valor del nodo.
-                aux.setBoss(boss);
+                aux.setEnemy(enemy);
             }
         }
     }

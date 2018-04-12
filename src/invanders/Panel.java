@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +33,8 @@ public class Panel extends JPanel {
     private Timer timer;
     private KeyboardController controller;
     SimpleList simpleList = new SimpleList();
+    EnemyFactoryMethod formarEnemy = new FactoryEnemy();
+ 
 
     
     private final int Width = 800;
@@ -43,19 +44,20 @@ public class Panel extends JPanel {
 
     private int score = 0;
     private int limit = 6;
-    private int numberR = 0;
+    private int numberR ;
+    private int x;
+    private int y;
     private int level = 1;
-    private int numberOfLives = 3;
+    private int numberOfLives=1;
     private int highScore;
     private int markerX, markerY;
-   // private static int bossHealth = 5; //////////////////////
+   private static int bossHealth = 5; 
+   private int numberVidas;
     File f = new File("Highscore.txt");   
     
         // Added Objects
     private Player player;
     private Player singleLife;
-    private Enemy enemy;
-    private Boss boss;
     //private Shield shield;
     private Bullet bullet;
     
@@ -68,17 +70,24 @@ public class Panel extends JPanel {
 
     private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
 
+    // EXTRA METHODS
     
+// Used in the Enemy class to help with the draw method for the boss
+/**    public static int getBossHealth() {
+        return numberVidas;
+    }**/
     
-    public final void setup(){
+    public final void setup() throws Exception {
         
     
-        if (level == 1){
+        if (level == 3){
             for (int row = 0;  row< 7; row++) {
                 for (int column = 0; column < 1; column++) {
+                    
+                       //MovingObject Enemigo = formarEnemy.createEnemy(PROPERTIES, PROPERTIES, ALLBITS, ALLBITS, Color.yellow, WIDTH, true)
                 
         
-                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,0,true,40,40); // Enemy speed will increase each level
+                    MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 0, null, 1, true,40,40); // Enemy speed will increase each level
                     simpleList.add(enemy);
                 } 
             }
@@ -86,18 +95,55 @@ public class Panel extends JPanel {
       
       
         if(level==2){
+            
             for (int row = 0;  row< 7; row++) {
                 for (int column = 0; column < 1; column++) {
                 
         
-                    enemy = new Enemy((200+(row*70)),(50 + (column * 60)) , level, 0, null,0,true,40,40); // Enemy speed will increase each level
-                    simpleList.add(enemy);  
+                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null, 1, true,40,40); // Enemy speed will increase each level
+                    simpleList.add(enemy); 
                 }
 
             }
-            
+            numberR = (int)(Math.random()*limit);
+            numberVidas = (int)(Math.random()*bossHealth)+1;
+            if(numberVidas==1){
+                numberVidas+=1;
+            System.out.println("Vidas de Boss:");
+            System.out.println(numberVidas);
+            }else{
+                System.out.println("Vidas de enemigo:");
+                System.out.println(numberVidas);
+            }
+            x= simpleList.getInPosition(numberR).getEnemy().getXPosition();
+            y = simpleList.getInPosition(numberR).getEnemy().getYPosition();
+            // System.out.println(x);
+             //System.out.println(y);
+
+             MovingObject enemy1 = formarEnemy.createEnemy(x,y,level,0,null,numberVidas,true,40,40);
+             //System.out.println(numberR);
+            simpleList.edit(numberR, enemy1);
+            //System.out.println(simpleList.getSize()); 
         }
-            
+            if (level==7){
+                //JOptionPane.showMessageDialog(null, "Congratulations");
+                int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You win the game with " + score + " points", 0);
+            // If they choose to play again, this resets every element in the game
+            if (answer == 0) {
+                simpleList.clear();
+                score = 0;
+                level = 1;
+                numberOfLives = 1;
+                newBulletCanFire = true;
+                newBeamCanFire = true;
+                setup();
+            }
+            // If they choose not to play again, it closes the game
+            if (answer == 1) {
+                System.exit(0);
+            }
+                
+            }
            
             
  
@@ -129,7 +175,7 @@ public class Panel extends JPanel {
         player.draw(g);  
         
         
-              //Draws the aliens 
+              //Draws the aliens   
         try {
          
             for (int index = 0; index < simpleList.Size(); index++) {
@@ -227,9 +273,10 @@ public class Panel extends JPanel {
             for (int index = 0; index < simpleList.Size(); index++) {
                 simpleList.getInPosition(index).getEnemy().move();
             }
-        }
+        } 
         
         
+       
         // Move bullet
         if (bullet != null) 
         {
@@ -240,24 +287,48 @@ public class Panel extends JPanel {
                 
             }
            
-                      // Checks for collisions with enemies
-            for (int ind = 0; ind < simpleList.Size(); ind++) {
-                if (bullet.Colliding(simpleList.getInPosition(ind).getEnemy())) {
-                   
-                   
-                    bullet = new Bullet(0, 0, 0, null);
-                   //bullet=null;
+        // Checks for collisions with enemies
+            for (int ind = 0; ind < simpleList.Size(); ind++) { 
+                if (bullet.Colliding(simpleList.getInPosition(ind).getEnemy())) { 
+                  bullet = new Bullet(0, 0, 0, null);
                     newBulletCanFire = true;
-                    // Updates score for normal levels
                     
-                    if (level==1){
+                    // Updates score for normal levels
+                    if(level==3){
                         score += 100;
                         hitMarker = true;
                         markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
                         markerY = simpleList.getInPosition(ind).getEnemy().getYPosition();
                         simpleList.remove(ind);
-                        System.out.println(simpleList.Size());
+                        //System.out.println(simpleList.Size());
                         
+                    }
+                    if (level==2){
+                      //MovingObject enemy1;
+                       if(simpleList.getInPosition(ind).getEnemy().vida!=1){
+                        hitMarker = true;
+                        markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "- 1" spawns off of
+                        markerY = simpleList.getInPosition(ind).getEnemy().getYPosition() + 165;
+                        numberVidas-=1;
+                        System.out.println(numberVidas);
+                        if(numberVidas==0){
+                         simpleList.clear(); 
+                         score+=1000;
+                     
+                        } 
+                       } else{
+                         score += 100;
+                        hitMarker = true;
+                        markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
+                        markerY = simpleList.getInPosition(ind).getEnemy().getYPosition();
+                        simpleList.remove(ind);
+                        //System.out.println(simpleList.Size());
+                           
+                       }
+
+                    }
+                        
+ 
                         
                     }
                 
@@ -265,7 +336,7 @@ public class Panel extends JPanel {
                 } 
                 
             } 
-        }
+        
         
         
                 //Destroys shields if aliens collide with them
@@ -312,8 +383,13 @@ public class Panel extends JPanel {
     ////////////////////////////////////END UPDATE STATE
     
      /////////////////////////////////////////////////////// PANEL      
+
+    /**
+     *
+     * @throws Exception
+     */
     
-     public Panel() {
+     public Panel() throws Exception {
         // Set the size of the Panel
         this.setSize(Width, Height);
         this.setPreferredSize(new Dimension(Width, Height));

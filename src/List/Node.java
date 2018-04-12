@@ -5,9 +5,7 @@
  */
 package List;
 
-import invanders.Boss;
-import invanders.Enemy;
-import invanders.EnemyR;
+import invanders.MovingObject;
 
 
 
@@ -18,53 +16,33 @@ import invanders.EnemyR;
 public class Node {
     // Variable en la cual se va a guardar el valor.
    
-    private Enemy enemy;
-    private EnemyR enemyR;
-    private Boss boss;
+
     // Variable para enlazar los nodos.
     private Node next;
+    private MovingObject a;
 
     /**
      * Constructor que inicializamos el valor de las variables.
      * @param enemy
-     * @param enemyR
-     * @param boss
      */
-    public void Node(Enemy enemy, EnemyR enemyR, Boss boss){
-        this.enemy = enemy;
-        this.boss = boss;
-        this.enemyR = enemyR;
+    public void Node(MovingObject a){
+        this.a = a;
+   
         this.next = null;
        
     } 
-    
-    
+ 
     //métodos get y set para los atributos.
     
-    public Enemy getEnemy(){
-        return enemy;
+    public MovingObject getEnemy(){
+        return a;
     }
     
-    public void setEnemy(Enemy enemy){
-        this.enemy = enemy;
+    public void setEnemy(MovingObject enemy){
+        this.a = enemy;
     }
     
-    public Boss getBoss(){
-        return boss;
-    }
-    
-    public void setBoss(Boss boss){
-        this.boss = boss;
-    }
-    
-        public EnemyR getEnemyR(){
-        return enemyR;
-    }
-    
-    public void setEnemyR(EnemyR enemyR){
-        this.enemyR = enemyR;
-    }
-    
+   
     public void setValor(int valor){
     }
     

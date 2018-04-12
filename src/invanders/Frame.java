@@ -6,6 +6,9 @@
 package invanders;
 
 
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -16,8 +19,7 @@ public class Frame extends JFrame
 {
     private Panel invaders;
     
-    public Frame()
-    {
+    public Frame() throws Exception {
         super("Invaders");
         
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -34,11 +36,16 @@ public class Frame extends JFrame
         invaders.start();
         
     }
+        
     public static void main(String[] args) 
-    {
+     {
          java.awt.EventQueue.invokeLater(() -> {
-             new Frame().setVisible(true);
+             try {
+                 new Frame().setVisible(true);
+             } catch (Exception ex) {
+                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+             }
          });
-    
+        
     }
 }

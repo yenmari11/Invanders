@@ -18,7 +18,6 @@ public abstract class Object implements Drawable {
     int xPosition;
     int yPosition;
     Color color;
-  
     boolean Colliding;
 
     

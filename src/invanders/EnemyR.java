@@ -17,21 +17,28 @@ import javax.swing.ImageIcon;
  */
 public class EnemyR extends MovingObject {
     
-    private int width;
-    private int height;
+   private int width;
+   private int height;
     private int vida =1;
    private boolean vivo;
     
     ImageIcon alienR = new ImageIcon("images/alienR.gif");
 
-    public EnemyR(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int vida, boolean vivo, int width,int height) {
-        super(xPosition, yPosition, xVelocity, yVelocity,color, vida, vivo);
+    public EnemyR(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int vida, boolean vivo,int width, int heght) {
+        super(xPosition, yPosition, xVelocity, yVelocity, color, vida, vivo);
+                this.vida = vida;
         this.width = width;
         this.height = height;
-        this.vida = vida;
     }
-    
+
+  
+
     @Override
+    public void draw(Graphics g) {
+        alienR.paintIcon(null, g, this.getXPosition(), this.getYPosition());
+    }
+
+     @Override
     public void actualizarPosicion(int xPosition, int yPosition){
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -41,9 +48,6 @@ public class EnemyR extends MovingObject {
     public void actualizarVida(int vida){
         this.vida = vida;
     }
-    
-  
-
 
 // Gets the hitbox for normal enemies
     @Override
@@ -56,14 +60,5 @@ public class EnemyR extends MovingObject {
     public void move() {
         xPosition += xVel;
     }
-
-
-
-    
-    @Override
-    public void draw(Graphics g) {
-        alienR.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-
-    }
-    
+  
 }

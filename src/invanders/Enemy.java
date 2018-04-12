@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author Yendry Diaz Solis.
  */
-public class Enemy extends MovingObject {
+public  class Enemy extends MovingObject {
     
     ImageIcon alien1 = new ImageIcon("images/alien1.gif");
     //ImageIcon alienBoss = new ImageIcon("images/alienBoss.gif");
@@ -29,8 +29,8 @@ public class Enemy extends MovingObject {
     public Enemy(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color,int vida, boolean vivo, int width, int height) {
         super(xPosition, yPosition, xVelocity, yVelocity, color, vida, vivo);
         this.vida = vida;
-        this.width = width;
-        this.height = height;
+       this.width = width;
+       this.height = height;
 
     }
 

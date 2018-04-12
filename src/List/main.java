@@ -26,8 +26,20 @@ public class main {
           Boss boss1 = new Boss(0,0,0,0,null,0,true,0,0);
            Enemy enemy2 = new Enemy(0,0,0,0,null,0,true,0,0);
              Boss boss2 = new Boss(0,0,0,0,null,0,true,0,0);
+        int bossHealth=5;
            
-     
+        int numberVidas = (int)(Math.random()*bossHealth)+1;
+        if (numberVidas==1){
+            numberVidas+=1;
+        System.out.println("random con 1");
+        System.out.println(numberVidas);
+                System.out.println("fin random 1");
+        } else{
+                           System.out.println("random");
+        System.out.println(numberVidas);
+                System.out.println("fin random");
+        }
+
         
        lista.add(enemy1);
 
