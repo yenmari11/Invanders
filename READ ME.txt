@@ -1,0 +1,2 @@
+El programa fue elaborado en NetBeans.
+Por favor, abrir en NetBeans IDE 8.1

@@ -10,6 +10,7 @@ package invanders;
  * @author Yendry Diaz Solis.
  */
 public interface Moveable {
+
     public void move();
-    
+
 }

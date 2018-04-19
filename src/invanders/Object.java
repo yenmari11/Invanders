@@ -5,7 +5,6 @@
  */
 package invanders;
 
-
 import java.awt.Color;
 import java.awt.Rectangle;
 
@@ -14,21 +13,22 @@ import java.awt.Rectangle;
  * @author Yendry Diaz Solis.
  */
 public abstract class Object implements Drawable {
-  
+
     int xPosition;
     int yPosition;
     Color color;
     boolean Colliding;
 
-    
-    public Object(){};
+    public Object() {
+    }
+
+    ;
     
     // Constuctor for any Game Object
     public Object(int xPosition, int yPosition, Color color) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.color = color;
-   
 
     }
 
@@ -44,7 +44,7 @@ public abstract class Object implements Drawable {
         return yPosition;
     }
 
-      // Gets the color of any object
+    // Gets the color of any object
     public Color getColor() {
         return color;
     }
@@ -70,5 +70,4 @@ public abstract class Object implements Drawable {
         return Colliding;
     }
 
-    
 }

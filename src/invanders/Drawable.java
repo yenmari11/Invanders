@@ -11,10 +11,8 @@ import java.awt.Graphics;
  *
  * @author Yendry Diaz Solis.
  */
+public interface Drawable {
 
-public interface Drawable 
-{
-    
     public void draw(Graphics g);
-    
+
 }

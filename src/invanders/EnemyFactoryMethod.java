@@ -12,5 +12,6 @@ import java.awt.Color;
  * @author yenma
  */
 public interface EnemyFactoryMethod {
-    public MovingObject createEnemy(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int vida, boolean vivo,int width, int heght);
+
+    public MovingObject createEnemy(int xPosition, int yPosition, int xVelocity, int yVelocity, Color color, int vida, boolean vivo, int width, int heght);
 }

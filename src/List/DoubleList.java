@@ -1,118 +1,85 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package List;
-
 import invanders.MovingObject;
 
 /**
  *
- * @author Yendry Diaz Solis
+ * @author yenma
  */
-public class SimpleList {
-
-    // Puntero que indica el inicio de la lista o conocida tambien
+public class DoubleList {
+        // Puntero que indica el inicio de la lista o conocida tambien
     // como cabeza de la lista.
-    private Node first;
+    private DoubleNode first;
+    private DoubleNode last;
     // Variable para registrar el tamaño de la lista.
     private int size;
 
-    /**
+     /**
      * Constructor por defecto.
      */
-    public void SimpleList() {
+    public void DoubleList() {
+        last = null;
         first = null;
         size = 0;
     }
-
-    /**
+        /**
      * Consulta si la lista esta vacia.
      *
      * @return true si el primer nodo (inicio), no apunta a otro nodo.
      */
-    public boolean isEmpty() {
-        return first == null;
+    public boolean isEmpty(){
+        return first==null;
     }
-
-    /**
-     * Consulta cuantos elementos (nodos) tiene la lista.
-     *
-     * @return numero entero entre [0,n] donde n es el numero de elementos que
-     * contenga la lista.
-     */
-    //public int Size(){
-    //  return size;
-    //}
     /**
      * Agrega un nuevo nodo al inicio de la lista.
      *
      * @param enemy
      */
-    public void add(MovingObject enemy) {
-
-        // Define un nuevo nodo.
-        Node New = new Node();
+    public void add(MovingObject enemy){
+           // Define un nuevo nodo.
+        DoubleNode New = new DoubleNode();
         // Agrega al valor al nodo.
         New.setEnemy(enemy);
         // Consulta si la lista esta vacia.
-        if (isEmpty()) {
-            // Inicializa la lista agregando como inicio al nuevo nodo.
-            first = New;
-            // Caso contrario va agregando los nodos al inicio de la lista.
-        } else {
-            // Crea una copia de la lista.
-            Node aux = first;
-            // Recorre la lista hasta llegar al ultimo nodo.
-            while (aux.getNext() != null) {
-                aux = aux.getNext();
+        if(isEmpty()){
+             // Inicializa la lista agregando como inicio al nuevo nodo.
+            last=New;
+            first=last;
+              // Caso contrario va agregando los nodos al inicio de la lista.
+        } else{
+             // Crea una copia de la lista.
+            DoubleNode aux = first;
+             // Recorre la lista hasta llegar al ultimo nodo.
+            while(aux.getNext()!=null){
+                aux = aux.getNext();   
             }
             // Agrega el nuevo nodo al final de la lista.
             aux.setNext(New);
+            New.setPrevious(aux);   
         }
-
-        // Incrementa el contador de tamaño de la lista.
+           // Incrementa el contador de tamaño de la lista.
         size++;
     }
-
     
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    /**
-     * Busca si existe un valor en la lista.
-     *
-     * @param index
-     * @return true si existe el valor en la lista.
-     */
-    public boolean search(int index) {
-        // Crea una copia de la lista.
-        Node aux = first;
-        // Bandera para indicar si el valor existe.
-        boolean found = false;
-        // Recorre la lista hasta encontrar el elemento o hasta 
-        // llegar al final de la lista.
-        while (aux != null && found != true) {
-            // Consulta si el valor del nodo es igual al de referencia.
-            if (index == 0) {
-                // Canbia el valor de la bandera.
-                found = true;
-            } else {
-                // Avanza al siguiente. nodo.
-                aux = aux.getNext();
-            }
-        }
-
-        // Retorna el resultado de la bandera.
-        return found;
-    }
-
-    public int Size() {
+        public int Size() {
         return size;
     }
-
+    
+    public int getSize() {
+        int counter = 0;
+        DoubleNode aux = first;
+        while (aux != null) {
+            aux = aux.getNext();
+            counter++;
+        }
+        return counter;
+    }
+    
+    
     /**
      * Consulta la posición de un elemento en la lista
      *
@@ -131,37 +98,48 @@ public class SimpleList {
         if (index >= 0 && index < size) {
             // Consulta si el nodo a eliminar es el primero
             if (index == 0) {
+                
                 // Elimina el primer nodo apuntando al siguinte.
+                
                 first = first.getNext();
+                last= first.getPrevious().getPrevious();
             } // En caso que el nodo a eliminar este por el medio 
             // o sea el ultimo
             else {
                 // Crea una copia de la lista.
-                Node aux = first;
-                // Recorre la lista hasta lleger al nodo anterior al eliminar.
+                DoubleNode aux = first;
+             
+                // Recorre la lista hasta llegar al nodo anterior al eliminar.
                 for (int i = 0; i < index - 1; i++) {
                     aux = aux.getNext();
+                
                 }
                 // Guarda el nodo siguiente al nodo a eliminar.
-                Node next = aux.getNext();
+                DoubleNode next = aux.getNext();
+                DoubleNode previous = aux;
                 // Elimina la referencia del nodo apuntando al nodo siguiente.
+                
                 aux.setNext(next.getNext());
+                 aux.setPrevious(previous.getPrevious());
+                
             }
             // Disminuye el contador de tamaño de la lista.
             size--;
         }
     }
 
-    public int getSize() {
-        int counter = 0;
-        Node aux = first;
-        while (aux != null) {
-            aux = aux.getNext();
-            counter++;
-        }
-        return counter;
+    
+        /**
+     * Elimina la lista
+     */
+    public void clear() {
+        // Elimina el valor y la referencia a los demas nodos.
+        first = null;
+        last= null;
+        // Reinicia el contador de tamaño de la lista a 0.
+        size = 0;
     }
-
+    
     /**
      * Obtiene el nodo en x posición de la lista
      *
@@ -169,11 +147,11 @@ public class SimpleList {
      * @return Un nodo.
      * @throws Exception
      */
-    public Node getInPosition(int index) throws Exception {
+    public DoubleNode getInPosition(int index) throws Exception {
         // Consulta si el valor existe en la lista.
         if (index < this.size) {
             // Crea una copia de la lista.
-            Node aux = first;
+            DoubleNode aux = first;
             // COntado para almacenar la posición del nodo.
 
             // Recoore la lista hasta llegar al nodo de referencia.
@@ -192,17 +170,8 @@ public class SimpleList {
 
     }
 
-    /**
-     * Elimina la lista
-     */
-    public void clear() {
-        // Elimina el valor y la referencia a los demas nodos.
-        first = null;
-        // Reinicia el contador de tamaño de la lista a 0.
-        size = 0;
-    }
-
-    /**
+    
+        /**
      * Actualiza el valor de un nodo que se encuentre en la lista ubicado por su
      * posición.
      *
@@ -213,22 +182,24 @@ public class SimpleList {
         // Verifica si la posición ingresada se encuentre en el rango
         // >= 0 y < que el numero de elementos del la lista.
         if (numberR >= 0 && numberR < size) {
-            // Consulta si el nodo a eliminar es el primero.
+            // Consulta si el nodo a editar es el primero.
             if (numberR == 0) {
-                // Alctualiza el valor delprimer nodo.
+                // Alctualiza el valor del primer nodo.
                 first.setEnemy(enemy);
             } else {
                 // En caso que el nodo a eliminar este por el medio 
                 // o sea el ultimo
-                Node aux = first;
+                DoubleNode aux = first;
                 // Recorre la lista hasta llegar al nodo anterior al eliminar.
                 for (int i = 0; i < numberR; i++) {
                     aux = aux.getNext();
+                  
                 }
-                // Alctualiza el valor del nodo.
+                // Actualiza el valor del nodo.
                 aux.setEnemy(enemy);
             }
         }
     }
-
+    
+    
 }

@@ -16,17 +16,13 @@ import javax.swing.ImageIcon;
  * @author Yendry Diaz Solis.
  */
 public class Player extends ControlledObject {
-    
-    ImageIcon player = new ImageIcon("images/playerSkin.gif");
-    
 
-     // Constructor for all ship objects
+    ImageIcon player = new ImageIcon("images/playerSkin.gif");
+
+    // Constructor for all ship objects
     public Player(int xPosition, int yPosition, Color color, KeyboardController control) {
         super(xPosition, yPosition, color, control);
     }
-
-
-
 
     // Draw player controlled ship
     @Override
@@ -53,7 +49,7 @@ public class Player extends ControlledObject {
         if (control.getKeyStatus(39)) {
             xPosition += 10;
         }
-        
+
         // Move from edge to edge without stopping
         if (xPosition > 800) {
             xPosition = -50;
