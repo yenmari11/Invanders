@@ -10,7 +10,9 @@ import java.awt.event.KeyListener;
 
 /**
  *
- * @author Yendry Diaz Solis
+ * @author Yendry Diaz Solis.
+ * @version 17/04/2018
+ * 
  */
 public class KeyboardController implements KeyListener {
 

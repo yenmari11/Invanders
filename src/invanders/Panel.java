@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package invanders;
 
 import Controller.KeyboardController;
@@ -28,6 +24,8 @@ import javax.swing.Timer;
 /**
  *
  * @author Yendry Diaz Solis.
+ * @version 17/04/2018
+ * 
  */
 public class Panel extends JPanel {
     
@@ -72,12 +70,7 @@ public class Panel extends JPanel {
 
     private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
 
-    // EXTRA METHODS
-    
-// Used in the Enemy class to help with the draw method for the boss
-/**    public static int getBossHealth() {
-        return numberVidas;
-    }**/
+
     
     public final void setup() throws Exception {
        

@@ -4,7 +4,9 @@ import invanders.MovingObject;
 
 /**
  *
- * @author Yendry Diaz Solis
+ * @author Yendry Diaz Solis.
+ * @version 17/04/2018
+ * 
  */
 public class SimpleList {
 

@@ -5,10 +5,11 @@
  */
 package List;
 import invanders.MovingObject;
-
 /**
  *
- * @author yenma
+ * @author Yendry Diaz Solis.
+ * @version 17/04/2018
+ * 
  */
 public class DoubleList {
         // Puntero que indica el inicio de la lista o conocida tambien
