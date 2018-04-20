@@ -18,7 +18,7 @@ public class main {
      */
     public static void main(String[] args) throws Exception {
        // SimpleList lista = new SimpleList();
-       DoubleList lista = new DoubleList();
+       CircularList lista = new CircularList();
 
         System.out.println("<<-- Ejemplo de lista doble -->>\n");
 
@@ -46,9 +46,12 @@ public class main {
         lista.add(enemy2);
 
         lista.add(boss1);
+        int limit= 7;
 
+        int numberR = (int)(Math.random()*limit);
         
-
+              System.out.println("NumeroR");
+             System.out.println(numberR);
  System.out.println(enemy1);
   System.out.println(boss2);
         System.out.println("<<-- Lista -->>");

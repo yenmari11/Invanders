@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package List;
 import invanders.MovingObject;
 /**
@@ -19,6 +15,7 @@ public class DoubleList {
     // Variable para registrar el tamaño de la lista.
     private int size;
 
+
      /**
      * Constructor por defecto.
      */
@@ -26,6 +23,7 @@ public class DoubleList {
         last = null;
         first = null;
         size = 0;
+        
     }
         /**
      * Consulta si la lista esta vacia.
@@ -201,6 +199,56 @@ public class DoubleList {
             }
         }
     }
-    
-    
+
+    public void intercambiar(int enemyIndex, int bossIndex) {
+        if (enemyIndex < size && bossIndex < size) {
+            DoubleNode EnemyNode = first;
+
+            for (int f = 0; f < enemyIndex; f++) {
+                EnemyNode = EnemyNode.getNext();
+            }
+
+            DoubleNode BossNode = first;
+            for (int y = 0; y < bossIndex; y++) {
+                BossNode = BossNode.getNext();
+            }
+
+            int EnemyPosition = EnemyNode.getEnemy().getXPosition();
+            int BossPosition = BossNode.getEnemy().getXPosition();
+
+            EnemyNode.getEnemy().setXPosition(BossPosition);
+            BossNode.getEnemy().setXPosition(EnemyPosition);
+
+        }
+    }
+
+    public int MenorPosicionX() {
+        DoubleNode nodo = first;
+        int menor = 1000;
+        int velocidad = 0;
+
+        for (int f = 0; f < size; f++) {
+            if (nodo.getEnemy().getXPosition() < menor) {
+                menor = nodo.getEnemy().getXPosition();
+                velocidad = nodo.getEnemy().getXVelocity();
+            }
+            nodo = nodo.getNext();
+        }
+        return menor + velocidad;
+    }
+
+    public int MayorPosicionX() {
+        DoubleNode nodo = first;
+        int mayor = -1;
+        int velocidad = 0;
+        for (int f = 0; f < size; f++) {
+            if (nodo.getEnemy().getXPosition() > mayor) {
+                mayor = nodo.getEnemy().getXPosition();
+                velocidad = nodo.getEnemy().getXVelocity();
+            }
+            nodo = nodo.getNext();
+        }
+        return mayor + velocidad;
+    }
+  
 }

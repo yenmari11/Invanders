@@ -232,5 +232,36 @@ public class SimpleList {
             }
         }
     }
+    
+        public int MenorPosicionX(){
+        Node nodo = first;
+        int menor =1000;
+        int velocidad = 0;
+        
+        for (int f=0; f< size; f++){
+            if (nodo.getEnemy().getXPosition()<menor){
+                menor = nodo.getEnemy().getXPosition();
+                velocidad = nodo.getEnemy().getXVelocity();
+            }
+            nodo = nodo.getNext();
+        }
+        return menor+velocidad;
+    }
+    
+    public int MayorPosicionX(){
+        Node nodo = first;
+        int mayor = -1;
+        int velocidad =0;
+        for(int f=0; f<size; f++){
+            if (nodo.getEnemy().getXPosition()>mayor){
+                mayor = nodo.getEnemy().getXPosition();
+                velocidad = nodo.getEnemy().getXVelocity();
+            }
+            nodo = nodo.getNext();
+        }
+        return mayor +velocidad;
+    }
+    
+
 
 }

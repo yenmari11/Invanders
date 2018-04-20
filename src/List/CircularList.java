@@ -1,7 +1,6 @@
 
 package List;
-
-import invanders.Enemy;
+import invanders.MovingObject;
 
 /**
  *
@@ -42,7 +41,7 @@ public class CircularList {
      *
      * @param enemy
      */
-    public void add(Enemy enemy) {
+    public void add(MovingObject enemy) {
 
         // Define un nuevo nodo.
         Node New = new Node();
@@ -60,40 +59,13 @@ public class CircularList {
             // Une el nuevo nodo con la lista existente.
             New.setNext(first);
             // Renombra al nuevo nodo como el inicio de la lista.
-            first = New;
+           first= New;
             last.setNext(first);
         }
         // Incrementa el contador de tamaño de la lista.
         size++;
     }
 
-    /**
-     * Busca si existe un valor en la lista.
-     *
-     * @param index
-     * @return true si existe el valor en la lista.
-     */
-    public boolean search(int index) {
-        // Crea una copia de la lista.
-        Node aux = first;
-        // Bandera para indicar si el valor existe.
-        boolean found = false;
-        // Recorre la lista hasta encontrar el elemento o hasta 
-        // llegar al final de la lista.
-
-        while (aux != null && found != true) {
-            // Consulta si el valor del nodo es igual al de referencia.
-            if (index == 0) {
-                // Canbia el valor de la bandera.
-                found = true;
-            } else {
-                // Avanza al siguiente nodo.
-                aux = aux.getNext();
-            }
-        }
-        // Retorna el resultado de la bandera.
-        return found;
-    }
 
     public int Size() {
         return size;
@@ -102,7 +74,7 @@ public class CircularList {
     /**
      * Consulta la posición de un elemento en la lista
      *
-     * @param referencia valor del nodo el cual se desea saber la posición.
+     * @param posición valor del nodo el cual se desea saber la posición.
      * @return un valor entero entre [0,n] que indica la posición del nodo.
      * @throws Exception
      */
@@ -117,7 +89,7 @@ public class CircularList {
         if (index >= 0 && index < size) {
             // Consulta si el nodo a eliminar es el primero
             if (index == 0) {
-                // Elimina el primer nodo apuntando al siguinte.
+                // Elimina el primer nodo apuntando al siguiente.
                 first = first.getNext();
                 // Apuntamos con el ultimo nodo de la lista al inicio.
                 last.setNext(first);
@@ -127,7 +99,7 @@ public class CircularList {
                 // Crea una copia de la lista.
                 Node aux = first;
                 // Recorre la lista hasta lleger al nodo anterior al eliminar.
-                for (int i = 0; i < index - 1; i++) {
+                for (int i = 0; i < index -1; i++) {
                     aux = aux.getNext();
                 }
                 if (aux.getNext() == last) {
@@ -148,6 +120,18 @@ public class CircularList {
         }
     }
 
+    
+            /**
+     * Elimina la lista
+     */
+    public void clear() {
+        // Elimina el valor y la referencia a los demas nodos.
+        first = null;
+        last= null;
+        // Reinicia el contador de tamaño de la lista a 0.
+        size = 0;
+    }
+    
     /**
      * Obtiene el nodo en x posición de la lista
      *
@@ -155,7 +139,33 @@ public class CircularList {
      * @return Un nodo.
      * @throws Exception
      */
-    public Node getInPosition(int index) throws Exception {
+    
+        public Node getInPosition(int index) throws Exception {
+        // Consulta si el valor existe en la lista.
+        if (index < this.size) {
+            // Crea una copia de la lista.
+            Node aux = first;
+            // COntado para almacenar la posición del nodo.
+
+            // Recoore la lista hasta llegar al nodo de referencia.
+            while (index > 0) {//&& aux != null ){
+
+                aux = aux.getNext();
+                index -= 1;
+            }
+            return aux;
+        } else {
+            throw new Exception("Valor inexistente en la lista.");
+
+        }
+        // Retorna el valor del contador.
+        // Crea una excepción de Valor inexistente en la lista.
+
+    }
+    
+    
+    
+   /** public Node getInPosition(int index) throws Exception {
         // Consulta si el valor existe en la lista.
         if (index >= 0 && index < size) {
             // Consulta si la posicion es el inicio de la lista.
@@ -177,18 +187,89 @@ public class CircularList {
             throw new Exception("Posicion inexistente en la lista.");
         }
 
+    }**/
+    
+    
+    /**
+     * Actualiza el valor de un nodo que se encuentre en la lista ubicado por su
+     * posición.
+     *
+     * @param numberR en la cual se encuentra el nodo a actualizar.
+     * @param enemy
+     */
+    public void edit(int numberR, MovingObject enemy) {
+        // Verifica si la posición ingresada se encuentre en el rango
+        // >= 0 y < que el numero de elementos del la lista.
+        if (numberR >= 0 && numberR < size) {
+            // Consulta si el nodo a editar es el primero.
+            if (numberR == 0) {
+                // Alctualiza el valor del primer nodo.
+                first.setEnemy(enemy);
+            } else {
+                // En caso que el nodo a eliminar este por el medio 
+                // o sea el ultimo
+                Node aux = first;
+                // Recorre la lista hasta llegar al nodo anterior al eliminar.
+                for (int i = 0; i < numberR; i++) {
+                    aux = aux.getNext();
+                  
+                }
+                // Actualiza el valor del nodo.
+                aux.setEnemy(enemy);
+            }
+        }
     }
 
-    /**
-     * Elimina la lista
-     */
-    public void clear() {
-        // Elimina el valor y la referencia a los demas nodos.
-        first = null;
-        // Elimina el valor y la referencia al primer nodo.
-        last = null;
-        // Reinicia el contador de tamaño de la lista a 0.
-        size = 0;
+   public void intercambiar(int enemyIndex, int bossIndex) {
+        if (enemyIndex < size && bossIndex < size) {
+            Node EnemyNode = first;
+
+            for (int f = 0; f < enemyIndex; f++) {
+                EnemyNode = EnemyNode.getNext();
+            }
+
+            Node BossNode = first;
+            for (int y = 0; y < bossIndex; y++) {
+                BossNode = BossNode.getNext();
+            }
+
+            int EnemyPosition = EnemyNode.getEnemy().getXPosition();
+            int BossPosition = BossNode.getEnemy().getXPosition();
+
+            EnemyNode.getEnemy().setXPosition(BossPosition);
+            BossNode.getEnemy().setXPosition(EnemyPosition);
+
+        }
+    }
+    
+    
+        public int MenorPosicionX() {
+        Node nodo = first;
+        int menor = 1000;
+        int velocidad = 0;
+
+        for (int f = 0; f < size; f++) {
+            if (nodo.getEnemy().getXPosition() < menor) {
+                menor = nodo.getEnemy().getXPosition();
+                velocidad = nodo.getEnemy().getXVelocity();
+            }
+            nodo = nodo.getNext();
+        }
+        return menor + velocidad;
+    }
+
+    public int MayorPosicionX() {
+        Node nodo = first;
+        int mayor = -1;
+        int velocidad = 0;
+        for (int f = 0; f < size; f++) {
+            if (nodo.getEnemy().getXPosition() > mayor) {
+                mayor = nodo.getEnemy().getXPosition();
+                velocidad = nodo.getEnemy().getXVelocity();
+            }
+            nodo = nodo.getNext();
+        }
+        return mayor + velocidad;
     }
 
 }

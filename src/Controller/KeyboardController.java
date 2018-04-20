@@ -1,17 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- *
+ * sirve para que el juego pueda escuchar las teclas necesarias para que la nave pueda moverse, en este caso son las direccionales y el space del teclado.
  * @author Yendry Diaz Solis.
  * @version 17/04/2018
+ * Nombre de la clase: KeyboardController.
+ *   
+ * 
  * 
  */
 public class KeyboardController implements KeyListener {

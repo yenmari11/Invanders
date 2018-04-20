@@ -4,6 +4,7 @@ package invanders;
 import Controller.KeyboardController;
 import List.DoubleList;
 import List.SimpleList;
+import List.CircularList;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +35,9 @@ public class Panel extends JPanel {
     private KeyboardController controller;
     SimpleList simpleList = new SimpleList();
     DoubleList doubleList = new DoubleList();
+    CircularList circularList = new CircularList();
     EnemyFactoryMethod formarEnemy = new FactoryEnemy();
+    Random generadorAleatorios = new Random();
  
 
     
@@ -43,6 +47,7 @@ public class Panel extends JPanel {
     
 
     private int score = 0;
+    private int velocidad = 2;
     private int limit = 6;
     private int numberR ;
     private int x;
@@ -76,14 +81,14 @@ public class Panel extends JPanel {
        
         
         
-        if(level==1){
+                if(level==5){
+            
             for (int row = 0;  row< 7; row++) {
                 for (int column = 0; column < 1; column++) {
                 
         
-                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null,1, true,40,40); // Enemy speed will increase each level
-                    doubleList.add(enemy);
-                    //System.out.println(doubleList.Size());
+                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null, 1, true,40,40); // Enemy speed will increase each level
+                    circularList.add(enemy); 
                 }
 
             }
@@ -97,15 +102,49 @@ public class Panel extends JPanel {
                 System.out.println("Vidas de enemigo:");
                 System.out.println(numberVidas);
             }
-            x= doubleList.getInPosition(numberR).getEnemy().getXPosition();
-            y = doubleList.getInPosition(numberR).getEnemy().getYPosition();
+            x= circularList.getInPosition(numberR).getEnemy().getXPosition();
+            y = circularList.getInPosition(numberR).getEnemy().getYPosition();
             // System.out.println(x);
              //System.out.println(y);
 
              MovingObject enemy1 = formarEnemy.createEnemy(x,y,level,0,null,numberVidas,true,40,40);
              //System.out.println(numberR);
+            circularList.edit(numberR, enemy1);
+          
+        }
+        
+        
+        
+        if(level==4){
+            for (int row = 0;  row< 7; row++) {
+                for (int column = 0; column < 1; column++) {
+                
+        
+                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null,1, true,40,40); // Enemy speed will increase each level
+                    doubleList.add(enemy);
+                    //System.out.println(doubleList.Size());
+                }
+
+            }
+            //numberR = (int)(Math.random()*limit);
+            numberR = generadorAleatorios.nextInt(7);
+            numberVidas = (int)(Math.random()*bossHealth)+1;
+            if(numberVidas==1){
+                numberVidas+=1;
+            System.out.println("Vidas de Boss:");
+            System.out.println(numberVidas);
+            }else{
+                System.out.println("Vidas de enemigo:");
+                System.out.println(numberVidas);
+            }
+            x= doubleList.getInPosition(numberR).getEnemy().getXPosition();
+            y = doubleList.getInPosition(numberR).getEnemy().getYPosition();
+     
+             MovingObject enemy1 = formarEnemy.createEnemy(x,y,level,0,null,numberVidas,true,40,40);
+             
+    
             doubleList.edit(numberR, enemy1);
-            //System.out.println(doubleList.getSize());
+     
             
         }
         
@@ -199,7 +238,31 @@ public class Panel extends JPanel {
         
         
         //Draws the aliens  
-        if (level == 2 || level == 3) {
+                if (level == 5) {
+            g.setColor(Color.WHITE);
+            g.drawString("Actual Row: Class C", 10, 20);
+            g.drawString("Next Row: Class D", 10, 40);
+
+            try {
+
+                for (int index = 0; index < circularList.Size(); index++) {
+                    circularList.getInPosition(index).getEnemy().draw(g);
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        
+        
+        if (level == 2) {
+            g.setColor(Color.WHITE);
+            g.drawString("Actual Row: Class A", 10, 20);
+            g.drawString("Next Row: Basic", 10, 40);
+
             try {
 
                 for (int index = 0; index < simpleList.Size(); index++) {
@@ -212,20 +275,42 @@ public class Panel extends JPanel {
             }
 
         }
-        if (level == 1) {
-           
+        
+        if (level == 3) {
+            g.setColor(Color.WHITE);
+            g.drawString("Actual Row: Class Basic", 10, 20);
+            g.drawString("Next Row: Class C", 10, 40);
+
+            try {
+
+                for (int index = 0; index < simpleList.Size(); index++) {
+                    simpleList.getInPosition(index).getEnemy().draw(g);
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (level == 4) {
+            g.setColor(Color.WHITE);
+            g.drawString("Actual Row: Class B", 10, 20);
+            g.drawString("Next Row: Class C", 10, 40);
+
             try {
 
                 for (int index = 0; index < doubleList.getSize(); index++) {
-                     
+
                     doubleList.getInPosition(index).getEnemy().draw(g);
                 }
 
             } catch (IndexOutOfBoundsException e) {
             } catch (Exception ex) {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-       }
+            }
+        }
         
         
         
@@ -320,9 +405,25 @@ public class Panel extends JPanel {
         } catch (FileNotFoundException e) {
         }
 
+                if (level == 5) {
+            // Makes enemies move and change direction at borders
+            if ((circularList.MayorPosicionX()>760 || circularList.MenorPosicionX()<0)) {
+                for (int index = 0; index < circularList.Size(); index++) {
+                    circularList.getInPosition(index).getEnemy().setXVelocity(circularList.getInPosition(index).getEnemy().getXVelocity() * -1);
+                    circularList.getInPosition(index).getEnemy().setYPosition(circularList.getInPosition(index).getEnemy().getYPosition() + 10);
+                }
+            } else {
+                for (int index = 0; index < circularList.Size(); index++) {
+                    circularList.getInPosition(index).getEnemy().move();
+                }
+            }
+
+        }
+        
+        
         if (level == 2 || level == 3) {
             // Makes enemies move and change direction at borders
-            if ((simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXPosition() + simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXVelocity()) > 760 || (simpleList.getInPosition(0).getEnemy().getXPosition() + simpleList.getInPosition(0).getEnemy().getXVelocity()) < 0) {
+            if ((simpleList.MayorPosicionX()>760 || simpleList.MenorPosicionX()<0)) {
                 for (int index = 0; index < simpleList.Size(); index++) {
                     simpleList.getInPosition(index).getEnemy().setXVelocity(simpleList.getInPosition(index).getEnemy().getXVelocity() * -1);
                     simpleList.getInPosition(index).getEnemy().setYPosition(simpleList.getInPosition(index).getEnemy().getYPosition() + 10);
@@ -335,21 +436,38 @@ public class Panel extends JPanel {
 
         }
         
-        if(level==1){
-                // Makes enemies move and change direction at borders
-        if ((doubleList.getInPosition(doubleList.Size() - 1).getEnemy().getXPosition() + doubleList.getInPosition(doubleList.Size() - 1).getEnemy().getXVelocity()) > 760 || (doubleList.getInPosition(0).getEnemy().getXPosition() + doubleList.getInPosition(0).getEnemy().getXVelocity()) < 0) {
-            for (int index = 0; index < doubleList.Size(); index++) {
-                doubleList.getInPosition(index).getEnemy().setXVelocity(doubleList.getInPosition(index).getEnemy().getXVelocity() * -1);
-                doubleList.getInPosition(index).getEnemy().setYPosition(doubleList.getInPosition(index).getEnemy().getYPosition() + 10);
+        if (level == 4) {
+
+            /// Makes enemies move and change direction at borders
+            if (doubleList.MayorPosicionX() > 760 || doubleList.MenorPosicionX() < 0) {
+                for (int index = 0; index < doubleList.Size(); index++) {
+                    doubleList.getInPosition(index).getEnemy().setXVelocity(doubleList.getInPosition(index).getEnemy().getXVelocity() * -1);
+                    doubleList.getInPosition(index).getEnemy().setYPosition(doubleList.getInPosition(index).getEnemy().getYPosition() + 10);
+
+                }
+            } else {
+
+                for (int index = 0; index < doubleList.Size(); index++) {
+                    doubleList.getInPosition(index).getEnemy().move();
+
+                }
+
             }
-        }else {
-            for (int index = 0; index < doubleList.Size(); index++) {
-                doubleList.getInPosition(index).getEnemy().move();
+
+            for (int boss = 0; boss < doubleList.Size(); boss++) {
+                if (doubleList.getInPosition(boss).getEnemy().vida != 1) {
+                    if (doubleList.getInPosition(boss).getEnemy().xPosition % 50 == 0) {
+                        numberR = generadorAleatorios.nextInt(doubleList.getSize());
+                        doubleList.intercambiar(numberR, boss);
+                        //System.out.println("hola");
+                        //System.out.println(numberR);
+                    }
+
+                }
             }
-        } 
         }
-        
-        
+
+
         
         
         /**
@@ -380,6 +498,67 @@ public class Panel extends JPanel {
                 
             }
             
+            
+                       if (level == 1) {
+                // Checks for collisions with enemies
+                for (int ind = 0; ind < circularList.Size(); ind++) {
+
+                    if (bullet.Colliding(circularList.getInPosition(ind).getEnemy())) {
+                        bullet = new Bullet(0, 0, 0, null);
+                        newBulletCanFire = true;
+
+                        //MovingObject enemy1;
+                        if (circularList.getInPosition(ind).getEnemy().vida != 1) {
+                            hitMarker = true;
+                            markerX = circularList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+1000" spawns off of
+                            markerY = circularList.getInPosition(ind).getEnemy().getYPosition();
+                            numberVidas -= 1;
+                            System.out.println(numberVidas);
+
+                            if (numberVidas == 0) {
+                                hitMarker = true;
+                                score += 1000;
+                                do
+                                   numberR = generadorAleatorios.nextInt(circularList.Size());
+                                while (numberR== ind && circularList.Size()!=1);
+
+                                
+                                numberVidas = (int) (Math.random() * bossHealth) + 1;
+                                if (numberVidas == 1) {
+                                    numberVidas += 1;
+                                    System.out.println("Vidas de Boss:");
+                                    System.out.println(numberVidas);
+                                } else {
+                                    System.out.println("Vidas de enemigo:");
+                                    System.out.println(numberVidas);
+                                }
+                                //circularList.intercambiar(ind, numberR);
+                                circularList.getInPosition(ind).getEnemy().vida = numberVidas;
+                                circularList.intercambiar(ind, numberR);
+                                //circularList.remove(numberR);
+                                circularList.remove(numberR);
+                                System.out.println("paso cambio");
+
+                            }
+                        } else {
+
+                            score += 100;
+                            hitMarker = true;
+                            markerX = circularList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
+                            markerY = circularList.getInPosition(ind).getEnemy().getYPosition();
+
+                            circularList.remove(ind);
+
+                        }
+
+                    }
+
+                }
+            }
+
+            
+            
+            
            if(level==3 || level==2){
             // Checks for collisions with enemies
             for (int ind = 0; ind < simpleList.Size(); ind++) {
@@ -401,7 +580,7 @@ public class Panel extends JPanel {
                         //MovingObject enemy1;
                         if (simpleList.getInPosition(ind).getEnemy().vida != 1) {
                             hitMarker = true;
-                            markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "- 1" spawns off of
+                            markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+1000" spawns off of
                             markerY = simpleList.getInPosition(ind).getEnemy().getYPosition() + 165;
                             numberVidas -= 1;
                             System.out.println(numberVidas);
@@ -426,21 +605,23 @@ public class Panel extends JPanel {
             }}
             
             
-           if(level==1){
-               // Checks for collisions with enemies
-            for (int ind = 0; ind < doubleList.Size(); ind++) {
-                if (bullet.Colliding(doubleList.getInPosition(ind).getEnemy())) {
-                    bullet = new Bullet(0, 0, 0, null);
-                    newBulletCanFire = true;
-
+            if (level == 4) {
+                // Checks for collisions with enemies
+                for (int ind = 0; ind < doubleList.Size(); ind++) {
                     
+                    if (bullet.Colliding(doubleList.getInPosition(ind).getEnemy())) {
+                        bullet = new Bullet(0, 0, 0, null);
+                        newBulletCanFire = true;
+
+
                         //MovingObject enemy1;
                         if (doubleList.getInPosition(ind).getEnemy().vida != 1) {
                             hitMarker = true;
-                            markerX = doubleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "- 1" spawns off of
-                            markerY = doubleList.getInPosition(ind).getEnemy().getYPosition() + 165;
+                            markerX = doubleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+1000" spawns off of
+                            markerY = doubleList.getInPosition(ind).getEnemy().getYPosition();
                             numberVidas -= 1;
                             System.out.println(numberVidas);
+
                             if (numberVidas == 0) {
                                 doubleList.clear();
                                 score += 1000;
@@ -451,20 +632,64 @@ public class Panel extends JPanel {
                             hitMarker = true;
                             markerX = doubleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
                             markerY = doubleList.getInPosition(ind).getEnemy().getYPosition();
+
                             doubleList.remove(ind);
-                            //System.out.println(simpleList.Size());
 
                         }
 
-                    
-                }
+                    }
 
+                }
             }
-           }
                 
         } 
         
-        if (level == 1) {
+        
+        
+                
+        if (level == 5) {
+            //Destroys shields if aliens collide with them
+            for (int input = 0; input < circularList.Size(); input++) {
+
+                // If aliens exceed this X Position, you reset the level and lose a life
+                if (circularList.getInPosition(input).getEnemy().getYPosition() + 50 >= 750) {
+                    circularList.clear();
+
+                    numberOfLives = 0;
+
+                }
+            }
+
+            if (numberOfLives == 0) {
+
+                int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You lost the game with " + score + " points", 0);
+                // If they choose to play again, this resets every element in the game
+                if (answer == 0) {
+                    circularList.clear();
+                    score = 0;
+                    level = 1;
+                    numberOfLives = 1;
+                    newBulletCanFire = true;
+                    newBeamCanFire = true;
+                    setup();
+                }
+                // If they choose not to play again, it closes the game
+                if (answer == 1) {
+                    System.exit(0);
+                }
+            }
+
+            // Goes to next level, resets all lists, sets all counters to correct values
+            if (circularList.isEmpty() || circularList.Size()==0) {
+                level += 1;
+                setup();
+            }
+        }
+        
+        
+        
+        
+        if (level == 4) {
             //Destroys shields if aliens collide with them
             for (int input = 0; input < doubleList.Size(); input++) {
 

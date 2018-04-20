@@ -13,6 +13,9 @@ public class DoubleNode {
 
     // Variable en la cual se va a guardar el valor.
     private MovingObject enemy;
+    
+    
+
 
     // Variable para enlazar los nodos.
     private DoubleNode next;
@@ -25,11 +28,14 @@ public class DoubleNode {
      */
     public void DoubleNode(MovingObject enemy) {
         this.enemy = enemy;
-
         this.previous = null;
         this.next = null;
     }
 
+    
+
+    
+    
     //métodos get y set para los atributos.
     public MovingObject getEnemy() {
         return enemy;
@@ -41,6 +47,7 @@ public class DoubleNode {
 
     public void setValor(int valor) {
     }
+   
 
     public DoubleNode getNext() {
         return next;
