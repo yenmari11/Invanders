@@ -1,4 +1,3 @@
-
 package invanders;
 
 import Controller.KeyboardController;
