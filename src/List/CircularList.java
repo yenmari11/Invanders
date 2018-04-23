@@ -133,6 +133,8 @@ public class CircularList {
         size = 0;
     }
 
+    
+    
     /**
      * Obtiene el nodo en x posición de la lista. Método getInPosition
      *
@@ -163,6 +165,8 @@ public class CircularList {
 
     }
 
+    
+    
     /**
      * Actualiza el valor de un nodo que se encuentre en la lista ubicado por su
      * posición.
@@ -194,6 +198,8 @@ public class CircularList {
         }
     }
 
+    
+    
     /**
      * Intercambia la posición x de los nodos. 
      * Método intercambiar
@@ -223,6 +229,8 @@ public class CircularList {
         }
     }
 
+    
+    
     /**
      * verifica cual es la posición menor en x de la lista.
      * 
@@ -245,6 +253,8 @@ public class CircularList {
         return menor + velocidad;
     }
 
+    
+    
     /**
      * verifica cual es la posición mayor en x de la lista.
      * Método MayorPosiciónX
