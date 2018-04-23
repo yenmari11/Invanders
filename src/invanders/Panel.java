@@ -24,9 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
- *
+ * Clase panel.
  * @author Yendry Diaz Solis.
  * @version 17/04/2018
+ * Nombre de la clase: Panel
  * 
  */
 public class Panel extends JPanel {
@@ -76,51 +77,51 @@ public class Panel extends JPanel {
     private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
 
 
-    
+    /**
+     * Se añaden los enemigos a las listas correspondientes.
+     * Método setup
+     * @throws Exception 
+     */
     public final void setup() throws Exception {
-       
-        
-        
-                if(level==5){
-            
-            for (int row = 0;  row< 7; row++) {
+
+        if (level == 5) {
+
+            for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
-                
-        
-                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null, 1, true,40,40); // Enemy speed will increase each level
-                    circularList.add(enemy); 
+
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 10, null, 1, true, 40, 40); // Enemy speed will increase each level
+                    circularList.add(enemy);
                 }
 
             }
-            numberR = (int)(Math.random()*limit);
-            numberVidas = (int)(Math.random()*bossHealth)+1;
-            if(numberVidas==1){
-                numberVidas+=1;
-            System.out.println("Vidas de Boss:");
-            System.out.println(numberVidas);
-            }else{
+            numberR = (int) (Math.random() * limit);
+            numberVidas = (int) (Math.random() * bossHealth) + 1;
+            if (numberVidas == 1) {
+                numberVidas += 1;
+                System.out.println("Vidas de Boss:");
+                System.out.println(numberVidas);
+            } else {
                 System.out.println("Vidas de enemigo:");
                 System.out.println(numberVidas);
             }
-            x= circularList.getInPosition(numberR).getEnemy().getXPosition();
+            x = circularList.getInPosition(numberR).getEnemy().getXPosition();
             y = circularList.getInPosition(numberR).getEnemy().getYPosition();
             // System.out.println(x);
-             //System.out.println(y);
+            //System.out.println(y);
 
-             MovingObject enemy1 = formarEnemy.createEnemy(x,y,level,0,null,numberVidas,true,40,40);
-             //System.out.println(numberR);
+            MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, true, 40, 40);
+            //System.out.println(numberR);
             circularList.edit(numberR, enemy1);
-          
+
         }
         
         
         
-        if(level==4){
-            for (int row = 0;  row< 7; row++) {
+        if (level == 4) {
+            for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
-                
-        
-                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null,1, true,40,40); // Enemy speed will increase each level
+
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 10, null, 1, true, 40, 40); // Enemy speed will increase each level
                     doubleList.add(enemy);
                     //System.out.println(doubleList.Size());
                 }
@@ -128,72 +129,67 @@ public class Panel extends JPanel {
             }
             //numberR = (int)(Math.random()*limit);
             numberR = generadorAleatorios.nextInt(7);
-            numberVidas = (int)(Math.random()*bossHealth)+1;
-            if(numberVidas==1){
-                numberVidas+=1;
-            System.out.println("Vidas de Boss:");
-            System.out.println(numberVidas);
-            }else{
+            numberVidas = (int) (Math.random() * bossHealth) + 1;
+            if (numberVidas == 1) {
+                numberVidas += 1;
+                System.out.println("Vidas de Boss:");
+                System.out.println(numberVidas);
+            } else {
                 System.out.println("Vidas de enemigo:");
                 System.out.println(numberVidas);
             }
-            x= doubleList.getInPosition(numberR).getEnemy().getXPosition();
+            x = doubleList.getInPosition(numberR).getEnemy().getXPosition();
             y = doubleList.getInPosition(numberR).getEnemy().getYPosition();
-     
-             MovingObject enemy1 = formarEnemy.createEnemy(x,y,level,0,null,numberVidas,true,40,40);
-             
-    
+
+            MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, true, 40, 40);
+
             doubleList.edit(numberR, enemy1);
-     
-            
+
         }
         
-    
-        if (level == 3){
-            for (int row = 0;  row< 7; row++) {
+        if (level == 3) {
+            for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
-                    
-                       //MovingObject Enemigo = formarEnemy.createEnemy(PROPERTIES, PROPERTIES, ALLBITS, ALLBITS, Color.yellow, WIDTH, true)
-                
-        
-                    MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 0, null, 1, true,40,40); // Enemy speed will increase each level
+
+                    //MovingObject Enemigo = formarEnemy.createEnemy(PROPERTIES, PROPERTIES, ALLBITS, ALLBITS, Color.yellow, WIDTH, true)
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 0, null, 1, true, 40, 40); // Enemy speed will increase each level
                     simpleList.add(enemy);
-                } 
+                }
             }
         }
       
       
-        if(level==2){
-            
-            for (int row = 0;  row< 7; row++) {
+        if (level == 2) {
+
+            for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
-                
-        
-                  MovingObject enemy  = formarEnemy.createEnemy((200+(row*70)),(50 + (column * 60)),level, 10, null, 1, true,40,40); // Enemy speed will increase each level
-                    simpleList.add(enemy); 
+
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 10, null, 1, true, 40, 40); // Enemy speed will increase each level
+                    simpleList.add(enemy);
                 }
 
             }
-            numberR = (int)(Math.random()*limit);
-            numberVidas = (int)(Math.random()*bossHealth)+1;
-            if(numberVidas==1){
-                numberVidas+=1;
-            System.out.println("Vidas de Boss:");
-            System.out.println(numberVidas);
-            }else{
+            numberR = (int) (Math.random() * limit);
+            numberVidas = (int) (Math.random() * bossHealth) + 1;
+            if (numberVidas == 1) {
+                numberVidas += 1;
+                System.out.println("Vidas de Boss:");
+                System.out.println(numberVidas);
+            } else {
                 System.out.println("Vidas de enemigo:");
                 System.out.println(numberVidas);
             }
-            x= simpleList.getInPosition(numberR).getEnemy().getXPosition();
+            x = simpleList.getInPosition(numberR).getEnemy().getXPosition();
             y = simpleList.getInPosition(numberR).getEnemy().getYPosition();
             // System.out.println(x);
-             //System.out.println(y);
+            //System.out.println(y);
 
-             MovingObject enemy1 = formarEnemy.createEnemy(x,y,level,0,null,numberVidas,true,40,40);
-             //System.out.println(numberR);
+            MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, true, 40, 40);
+            //System.out.println(numberR);
             simpleList.edit(numberR, enemy1);
             //System.out.println(simpleList.getSize()); 
         }
+        
             if (level==7){
                 //JOptionPane.showMessageDialog(null, "Congratulations");
                 int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You win the game with " + score + " points", 0);
@@ -225,7 +221,11 @@ public class Panel extends JPanel {
     }
         
         ///////////////////////// PAINT
-   
+   /**
+    * Dibuja las naves enemigas, la nave del jugador y la bala.
+    * @param g 
+    * Método paint.
+    */
     @Override
     public void paint(Graphics g) 
     {
@@ -364,6 +364,12 @@ public class Panel extends JPanel {
     
     
        //////////////////////////////////// UPDATE STATE
+    
+    /**
+     * Método updateState
+     * @param frame
+     * @throws Exception 
+     */
     
     public void updateState(int frame) throws Exception
     {
@@ -776,7 +782,7 @@ public class Panel extends JPanel {
      /////////////////////////////////////////////////////// PANEL      
 
     /**
-     *
+     * Método Panel
      * @throws Exception
      */
     
@@ -800,7 +806,8 @@ public class Panel extends JPanel {
     
     
     /**
-     * Method to start the Timer that drives the animation for the game. It is
+     * Method to start the Timer that drives the animation for the game.
+     * It is
      * not necessary for you to modify this code unless you need to in order to
      * add some functionality.
      */

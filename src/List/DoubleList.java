@@ -1,73 +1,92 @@
-
 package List;
+
 import invanders.MovingObject;
+
 /**
+ * Clase que define las operaciones básicas que debe tener una lista doblemente
+ * enlazada.
  *
  * @author Yendry Diaz Solis.
- * @version 17/04/2018
- * 
+ * @version 17/04/2018 Nombre de la clase: DoubleList
+ *
  */
 public class DoubleList {
-        // Puntero que indica el inicio de la lista o conocida tambien
+    // Puntero que indica el inicio de la lista o conocida tambien
     // como cabeza de la lista.
+
     private DoubleNode first;
     private DoubleNode last;
     // Variable para registrar el tamaño de la lista.
     private int size;
 
-
-     /**
+    /**
      * Constructor por defecto.
      */
     public void DoubleList() {
         last = null;
         first = null;
         size = 0;
-        
+
     }
-        /**
-     * Consulta si la lista esta vacia.
+
+    /**
+     * Consulta si la lista esta vacia. 
+     * Método isEmpty
      *
      * @return true si el primer nodo (inicio), no apunta a otro nodo.
      */
-    public boolean isEmpty(){
-        return first==null;
+    public boolean isEmpty() {
+        return first == null;
     }
+
     /**
-     * Agrega un nuevo nodo al inicio de la lista.
+     * Agrega un nuevo nodo al inicio de la lista. 
+     * Método add
      *
      * @param enemy
      */
-    public void add(MovingObject enemy){
-           // Define un nuevo nodo.
+    public void add(MovingObject enemy) {
+        // Define un nuevo nodo.
         DoubleNode New = new DoubleNode();
         // Agrega al valor al nodo.
         New.setEnemy(enemy);
         // Consulta si la lista esta vacia.
-        if(isEmpty()){
-             // Inicializa la lista agregando como inicio al nuevo nodo.
-            last=New;
-            first=last;
-              // Caso contrario va agregando los nodos al inicio de la lista.
-        } else{
-             // Crea una copia de la lista.
+        if (isEmpty()) {
+            // Inicializa la lista agregando como inicio al nuevo nodo.
+            last = New;
+            first = last;
+            // Caso contrario va agregando los nodos al inicio de la lista.
+        } else {
+            // Crea una copia de la lista.
             DoubleNode aux = first;
-             // Recorre la lista hasta llegar al ultimo nodo.
-            while(aux.getNext()!=null){
-                aux = aux.getNext();   
+            // Recorre la lista hasta llegar al ultimo nodo.
+            while (aux.getNext() != null) {
+                aux = aux.getNext();
             }
             // Agrega el nuevo nodo al final de la lista.
             aux.setNext(New);
-            New.setPrevious(aux);   
+            New.setPrevious(aux);
         }
-           // Incrementa el contador de tamaño de la lista.
+        // Incrementa el contador de tamaño de la lista.
         size++;
     }
-    
-        public int Size() {
+
+    /**
+     * Método que la el tamaño de la lista.
+     * método Size
+     *
+     * @return size
+     */
+    public int Size() {
         return size;
     }
-    
+
+    /**
+     * Método que la el tamaño de la lista. 
+     * método getSize
+     *
+     * @return counter
+     */
     public int getSize() {
         int counter = 0;
         DoubleNode aux = first;
@@ -77,17 +96,10 @@ public class DoubleList {
         }
         return counter;
     }
-    
-    
-    /**
-     * Consulta la posición de un elemento en la lista
-     *
-     * @param referencia valor del nodo el cual se desea saber la posición.
-     * @return un valor entero entre [0,n] que indica la posición del nodo.
-     * @throws Exception
-     */
+
     /**
      * Elimina un nodo que se encuentre en la lista ubicado por su posición.
+     * Método remove
      *
      * @param index
      */
@@ -97,50 +109,50 @@ public class DoubleList {
         if (index >= 0 && index < size) {
             // Consulta si el nodo a eliminar es el primero
             if (index == 0) {
-                
+
                 // Elimina el primer nodo apuntando al siguinte.
-                
                 first = first.getNext();
-                last= first.getPrevious().getPrevious();
+                last = first.getPrevious().getPrevious();
             } // En caso que el nodo a eliminar este por el medio 
             // o sea el ultimo
             else {
                 // Crea una copia de la lista.
                 DoubleNode aux = first;
-             
+
                 // Recorre la lista hasta llegar al nodo anterior al eliminar.
                 for (int i = 0; i < index - 1; i++) {
                     aux = aux.getNext();
-                
+
                 }
                 // Guarda el nodo siguiente al nodo a eliminar.
                 DoubleNode next = aux.getNext();
                 DoubleNode previous = aux;
                 // Elimina la referencia del nodo apuntando al nodo siguiente.
-                
+
                 aux.setNext(next.getNext());
-                 aux.setPrevious(previous.getPrevious());
-                
+                aux.setPrevious(previous.getPrevious());
+
             }
             // Disminuye el contador de tamaño de la lista.
             size--;
         }
     }
 
-    
-        /**
-     * Elimina la lista
+    /**
+     * Elimina la lista.
+     * Método clear
      */
     public void clear() {
         // Elimina el valor y la referencia a los demas nodos.
         first = null;
-        last= null;
+        last = null;
         // Reinicia el contador de tamaño de la lista a 0.
         size = 0;
     }
-    
+
     /**
-     * Obtiene el nodo en x posición de la lista
+     * Obtiene el nodo en x posición de la lista.
+     * Método getInPosition
      *
      * @param index
      * @return Un nodo.
@@ -169,13 +181,13 @@ public class DoubleList {
 
     }
 
-    
-        /**
+    /**
      * Actualiza el valor de un nodo que se encuentre en la lista ubicado por su
-     * posición.
+     * posición. 
+     * Método edit
      *
      * @param numberR en la cual se encuentra el nodo a actualizar.
-     * @param enemy
+     * @param enemy nodo a editar
      */
     public void edit(int numberR, MovingObject enemy) {
         // Verifica si la posición ingresada se encuentre en el rango
@@ -192,7 +204,7 @@ public class DoubleList {
                 // Recorre la lista hasta llegar al nodo anterior al eliminar.
                 for (int i = 0; i < numberR; i++) {
                     aux = aux.getNext();
-                  
+
                 }
                 // Actualiza el valor del nodo.
                 aux.setEnemy(enemy);
@@ -200,6 +212,13 @@ public class DoubleList {
         }
     }
 
+    /**
+     * Intercambia la posición x de los nodos.
+     * Método intercambiar
+     *
+     * @param enemyIndex
+     * @param bossIndex
+     */
     public void intercambiar(int enemyIndex, int bossIndex) {
         if (enemyIndex < size && bossIndex < size) {
             DoubleNode EnemyNode = first;
@@ -222,6 +241,12 @@ public class DoubleList {
         }
     }
 
+    /**
+     * verifica cual es la posición menor en x de la lista. 
+     * MenorPosiciónX
+     *
+     * @return int
+     */
     public int MenorPosicionX() {
         DoubleNode nodo = first;
         int menor = 1000;
@@ -237,6 +262,12 @@ public class DoubleList {
         return menor + velocidad;
     }
 
+    /**
+     * verifica cual es la posición mayor en x de la lista. 
+     * MayorPosiciónX
+     *
+     * @return int
+     */
     public int MayorPosicionX() {
         DoubleNode nodo = first;
         int mayor = -1;
@@ -250,5 +281,5 @@ public class DoubleList {
         }
         return mayor + velocidad;
     }
-  
+
 }

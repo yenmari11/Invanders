@@ -3,9 +3,10 @@ package List;
 import invanders.MovingObject;
 
 /**
- *
+ * Clase que define las operaciones básicas que debe tener una lista simple enlazada.
  * @author Yendry Diaz Solis.
  * @version 17/04/2018
+ * Nombre de la clase: SimpleList
  * 
  */
 public class SimpleList {
@@ -26,25 +27,17 @@ public class SimpleList {
 
     /**
      * Consulta si la lista esta vacia.
-     *
+     * Método isEmpty
      * @return true si el primer nodo (inicio), no apunta a otro nodo.
      */
     public boolean isEmpty() {
         return first == null;
     }
 
-    /**
-     * Consulta cuantos elementos (nodos) tiene la lista.
-     *
-     * @return numero entero entre [0,n] donde n es el numero de elementos que
-     * contenga la lista.
-     */
-    //public int Size(){
-    //  return size;
-    //}
+
     /**
      * Agrega un nuevo nodo al inicio de la lista.
-     *
+     * Método add
      * @param enemy
      */
     public void add(MovingObject enemy) {
@@ -74,18 +67,9 @@ public class SimpleList {
     }
 
     
- 
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * Busca si existe un valor en la lista.
-     *
+     * Método search
      * @param index
      * @return true si existe el valor en la lista.
      */
@@ -110,21 +94,19 @@ public class SimpleList {
         // Retorna el resultado de la bandera.
         return found;
     }
-
+    
+    /**
+     * Método que la el tamaño de la lista. 
+     * Método Size
+     * @return size
+     */
     public int Size() {
         return size;
     }
 
     /**
-     * Consulta la posición de un elemento en la lista
-     *
-     * @param referencia valor del nodo el cual se desea saber la posición.
-     * @return un valor entero entre [0,n] que indica la posición del nodo.
-     * @throws Exception
-     */
-    /**
      * Elimina un nodo que se encuentre en la lista ubicado por su posición.
-     *
+     * Método remove
      * @param index
      */
     public void remove(int index) {
@@ -154,6 +136,11 @@ public class SimpleList {
         }
     }
 
+     /**
+     * Método que la el tamaño de la lista. 
+     * método getSize
+     * @return counter
+     */
     public int getSize() {
         int counter = 0;
         Node aux = first;
@@ -165,8 +152,8 @@ public class SimpleList {
     }
 
     /**
-     * Obtiene el nodo en x posición de la lista
-     *
+     * Obtiene el nodo en x posición de la lista.
+     * Método getInPosition
      * @param index
      * @return Un nodo.
      * @throws Exception
@@ -195,7 +182,8 @@ public class SimpleList {
     }
 
     /**
-     * Elimina la lista
+     * Elimina la lista.
+     * Método clear
      */
     public void clear() {
         // Elimina el valor y la referencia a los demas nodos.
@@ -207,9 +195,9 @@ public class SimpleList {
     /**
      * Actualiza el valor de un nodo que se encuentre en la lista ubicado por su
      * posición.
-     *
+     * Método edit
      * @param numberR en la cual se encuentra el nodo a actualizar.
-     * @param enemy
+     * @param enemy nodo a editar
      */
     public void edit(int numberR, MovingObject enemy) {
         // Verifica si la posición ingresada se encuentre en el rango
@@ -233,7 +221,13 @@ public class SimpleList {
         }
     }
     
-        public int MenorPosicionX(){
+    /**
+     * verifica cual es la posición menor en x de la lista. 
+     * MenorPosiciónX
+     *
+     * @return int
+     */ 
+    public int MenorPosicionX(){
         Node nodo = first;
         int menor =1000;
         int velocidad = 0;
@@ -248,6 +242,13 @@ public class SimpleList {
         return menor+velocidad;
     }
     
+    
+     /**
+     * verifica cual es la posición mayor en x de la lista. 
+     * MayorPosiciónX
+     *
+     * @return int
+     */   
     public int MayorPosicionX(){
         Node nodo = first;
         int mayor = -1;
