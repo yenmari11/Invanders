@@ -1,3 +1,4 @@
+
 package List;
 
 import invanders.MovingObject;
@@ -10,6 +11,7 @@ import invanders.MovingObject;
  * @version 17/04/2018 Nombre de la clase: DoubleList
  *
  */
+
 public class DoubleList {
     // Puntero que indica el inicio de la lista o conocida tambien
     // como cabeza de la lista.
@@ -19,6 +21,7 @@ public class DoubleList {
     // Variable para registrar el tamaño de la lista.
     private int size;
 
+    
     /**
      * Constructor por defecto.
      */
@@ -29,6 +32,7 @@ public class DoubleList {
 
     }
 
+    
     /**
      * Consulta si la lista esta vacia. 
      * Método isEmpty
@@ -39,6 +43,7 @@ public class DoubleList {
         return first == null;
     }
 
+    
     /**
      * Agrega un nuevo nodo al inicio de la lista. 
      * Método add
