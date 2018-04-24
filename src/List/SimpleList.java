@@ -136,6 +136,7 @@ public class SimpleList {
         }
     }
 
+    
      /**
      * Método que la el tamaño de la lista. 
      * método getSize
@@ -181,6 +182,7 @@ public class SimpleList {
 
     }
 
+    
     /**
      * Elimina la lista.
      * Método clear
@@ -192,6 +194,7 @@ public class SimpleList {
         size = 0;
     }
 
+    
     /**
      * Actualiza el valor de un nodo que se encuentre en la lista ubicado por su
      * posición.
@@ -220,6 +223,7 @@ public class SimpleList {
             }
         }
     }
+    
     
     /**
      * verifica cual es la posición menor en x de la lista. 

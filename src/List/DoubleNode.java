@@ -1,4 +1,3 @@
-
 package List;
 
 import invanders.MovingObject;
