@@ -27,6 +27,8 @@ public class CircularList {
         last = null;
         size = 0;
     }
+    
+    
 
     /**
      * Consulta si la lista esta vacia.
@@ -58,11 +60,12 @@ public class CircularList {
             last.setNext(first);
             // Caso contrario va agregando los nodos al inicio de la lista.
         } else {
+            last.setNext(New);
             // Une el nuevo nodo con la lista existente.
             New.setNext(first);
             // Renombra al nuevo nodo como el inicio de la lista.
-            first = New;
-            last.setNext(first);
+           last = New;
+           
         }
         // Incrementa el contador de tamaño de la lista.
         size++;
@@ -122,7 +125,7 @@ public class CircularList {
     }
 
     /**
-     * Elimina la lista.
+     * Elimina la lista. 
      * Método clear
      */
     public void clear() {
@@ -274,5 +277,4 @@ public class CircularList {
         }
         return mayor + velocidad;
     }
-
 }

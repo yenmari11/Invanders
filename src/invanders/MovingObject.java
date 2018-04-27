@@ -12,7 +12,7 @@ public abstract class MovingObject extends Object implements Moveable {
 
     int xVel;
     int yVel;
-    int vida = 1;
+    public int vida = 1;
     boolean vivo = true;
 
     // Constructor for any non controllable object
@@ -62,6 +62,10 @@ public abstract class MovingObject extends Object implements Moveable {
      */
     public void setXVelocity(int xVelocity) {
         this.xVel = xVelocity;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
     /**

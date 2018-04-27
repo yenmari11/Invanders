@@ -37,7 +37,7 @@ public class main {
          * System.out.println(numberVidas); System.out.println("fin random"); }
 *
          */
-        System.out.println(lista.isEmpty());
+        /**System.out.println(lista.isEmpty());
         lista.add(enemy1);
 
         lista.add(enemy2);
@@ -78,6 +78,11 @@ public class main {
         System.out.println("\nConsulta si la lista está vacia");
         System.out.println(lista.isEmpty());
 
-        System.out.println("\n\n<<-- Fin de ejemplo lista simple -->>");
+        System.out.println("\n\n<<-- Fin de ejemplo lista simple -->>");**/
+       int numberVidasResistencia;
+        
+        
+        numberVidasResistencia = (int) (Math.random() * 11) + 1;
+System.out.println(numberVidasResistencia);
     }
 }

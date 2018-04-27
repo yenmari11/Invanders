@@ -12,6 +12,7 @@ public class Node {
     
 
     // Variable para enlazar los nodos.
+  
     private Node next;
     private MovingObject enemy;
 

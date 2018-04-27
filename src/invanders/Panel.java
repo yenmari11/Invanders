@@ -3,6 +3,7 @@ package invanders;
 import Controller.KeyboardController;
 import List.DoubleList;
 import List.SimpleList;
+import List.BubbleSort;
 import List.CircularList;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -36,6 +37,7 @@ public class Panel extends JPanel {
     SimpleList simpleList = new SimpleList();
     DoubleList doubleList = new DoubleList();
     CircularList circularList = new CircularList();
+    
     EnemyFactoryMethod formarEnemy = new FactoryEnemy();
     Random generadorAleatorios = new Random();
  
@@ -82,8 +84,11 @@ public class Panel extends JPanel {
      * @throws Exception 
      */
     public final void setup() throws Exception {
-
-        if (level == 5) {
+        
+        
+          
+                 // Inicio Creación Clase C
+        if (level == 1) {
 
             for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
@@ -108,26 +113,58 @@ public class Panel extends JPanel {
             // System.out.println(x);
             //System.out.println(y);
 
-            MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, true, 40, 40);
+            MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, false, 40, 40);
             //System.out.println(numberR);
             circularList.edit(numberR, enemy1);
 
         }
+        // Fin Creación Clase C
         
         
-        
-        if (level == 4) {
+                // Inicio Creación Clase Basic
+        if (level == 2) {
             for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
 
-                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 10, null, 1, true, 40, 40); // Enemy speed will increase each level
-                    doubleList.add(enemy);
-                    //System.out.println(doubleList.Size());
+                    //MovingObject Enemigo = formarEnemy.createEnemy(PROPERTIES, PROPERTIES, ALLBITS, ALLBITS, Color.yellow, WIDTH, true)
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 0, null, 1, true, 40, 40); // Enemy speed will increase each level
+                    simpleList.add(enemy);
+                }
+            }
+        } // fin Creación Clase Basic
+        
+        
+        // Inicio Creación Clase D
+        if (level == 3) {
+
+            for (int row = 0; row < 7; row++) {
+                for (int column = 0; column < 1; column++) {
+                    int numberVidasResistencia = (int) (Math.random() * 12) + 1;
+                    
+                    if (numberVidasResistencia <=5 ) {
+                        numberVidasResistencia += 5;
+                        
+                        System.out.println("Vidas de resistencia:");
+                        System.out.println(numberVidasResistencia);
+                    } else {
+                        System.out.println("Vidas de Resistencia:");
+                        System.out.println(numberVidasResistencia);
+                    }
+
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 10, null,numberVidasResistencia, false, 40, 40); // Enemy speed will increase each level
+                    circularList.add(enemy);
+    
                 }
 
             }
-            //numberR = (int)(Math.random()*limit);
-            numberR = generadorAleatorios.nextInt(7);
+            BubbleSort bubbleSort = new BubbleSort();
+            bubbleSort.ImprimeLista(circularList);
+            System.out.println("Ordenando lista");
+            circularList=bubbleSort.bubbleSort(circularList);
+            bubbleSort.ImprimeLista(circularList);
+            
+            
+            numberR = (int) (Math.random() * limit);
             numberVidas = (int) (Math.random() * bossHealth) + 1;
             if (numberVidas == 1) {
                 numberVidas += 1;
@@ -137,28 +174,20 @@ public class Panel extends JPanel {
                 System.out.println("Vidas de enemigo:");
                 System.out.println(numberVidas);
             }
-            x = doubleList.getInPosition(numberR).getEnemy().getXPosition();
-            y = doubleList.getInPosition(numberR).getEnemy().getYPosition();
+            x = circularList.getInPosition(numberR).getEnemy().getXPosition();
+            y = circularList.getInPosition(numberR).getEnemy().getYPosition();
+            // System.out.println(x);
+            //System.out.println(y);
 
             MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, true, 40, 40);
+            //System.out.println(numberR);
+            circularList.edit(numberR, enemy1);
 
-            doubleList.edit(numberR, enemy1);
-
-        }
+        }  // fin Creación Clase D
         
-        if (level == 3) {
-            for (int row = 0; row < 7; row++) {
-                for (int column = 0; column < 1; column++) {
-
-                    //MovingObject Enemigo = formarEnemy.createEnemy(PROPERTIES, PROPERTIES, ALLBITS, ALLBITS, Color.yellow, WIDTH, true)
-                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 0, null, 1, true, 40, 40); // Enemy speed will increase each level
-                    simpleList.add(enemy);
-                }
-            }
-        }
-      
-      
-        if (level == 2) {
+        
+              // Inicio Creación Clase A
+        if (level == 4) {
 
             for (int row = 0; row < 7; row++) {
                 for (int column = 0; column < 1; column++) {
@@ -188,6 +217,48 @@ public class Panel extends JPanel {
             simpleList.edit(numberR, enemy1);
             //System.out.println(simpleList.getSize()); 
         }
+         // FIn Creación Clase A
+        
+
+        // Inicio Creación Clase B
+        if (level == 5) {
+            for (int row = 0; row < 7; row++) {
+                for (int column = 0; column < 1; column++) {
+
+                    MovingObject enemy = formarEnemy.createEnemy((200 + (row * 70)), (50 + (column * 60)), level, 10, null, 1, true, 40, 40); // Enemy speed will increase each level
+                    doubleList.add(enemy);
+                    //System.out.println(doubleList.Size());
+                }
+
+            }
+            //numberR = (int)(Math.random()*limit);
+            numberR = generadorAleatorios.nextInt(7);
+            numberVidas = (int) (Math.random() * bossHealth) + 1;
+            if (numberVidas == 1) {
+                numberVidas += 1;
+                System.out.println("Vidas de Boss:");
+                System.out.println(numberVidas);
+            } else {
+                System.out.println("Vidas de enemigo:");
+                System.out.println(numberVidas);
+            }
+            x = doubleList.getInPosition(numberR).getEnemy().getXPosition();
+            y = doubleList.getInPosition(numberR).getEnemy().getYPosition();
+
+            MovingObject enemy1 = formarEnemy.createEnemy(x, y, level, 0, null, numberVidas, true, 40, 40);
+
+            doubleList.edit(numberR, enemy1);
+
+        } // Fin Creación Clase B
+        
+        
+
+        
+        
+      
+
+         
+         
         
             if (level==7){
                 //JOptionPane.showMessageDialog(null, "Congratulations");
@@ -237,10 +308,13 @@ public class Panel extends JPanel {
         
         
         //Draws the aliens  
-                if (level == 5) {
+        
+        
+                          //Inicio dibujar hilera clase C
+                if (level == 1) {
             g.setColor(Color.WHITE);
             g.drawString("Actual Row: Class C", 10, 20);
-            g.drawString("Next Row: Class D", 10, 40);
+            g.drawString("Next Row: Class Basic", 10, 40);
 
             try {
 
@@ -253,32 +327,14 @@ public class Panel extends JPanel {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
+        }  //FIN dibujar hilera clase C
         
         
-        
+                //Inicio dibujar hilera clase Basic
         if (level == 2) {
             g.setColor(Color.WHITE);
-            g.drawString("Actual Row: Class A", 10, 20);
-            g.drawString("Next Row: Basic", 10, 40);
-
-            try {
-
-                for (int index = 0; index < simpleList.Size(); index++) {
-                    simpleList.getInPosition(index).getEnemy().draw(g);
-                }
-
-            } catch (IndexOutOfBoundsException e) {
-            } catch (Exception ex) {
-                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        
-        if (level == 3) {
-            g.setColor(Color.WHITE);
             g.drawString("Actual Row: Class Basic", 10, 20);
-            g.drawString("Next Row: Class C", 10, 40);
+            g.drawString("Next Row: Class D", 10, 40);
 
             try {
 
@@ -291,12 +347,57 @@ public class Panel extends JPanel {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
+        }  //Fin dibujar hilera clase Basic
+        
+                
+        
+        //Inicio dibujar hilera clase D
+                  if (level == 3) {
+            g.setColor(Color.WHITE);
+            g.drawString("Actual Row: Class D", 10, 20);
+            g.drawString("Next Row: Class A", 10, 40);
 
+            try {
+
+                for (int index = 0; index < circularList.Size(); index++) {
+                    circularList.getInPosition(index).getEnemy().draw(g);
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }//Fin dibujar hilera clase D
+        
+        
+              
+                 //Inicio dibujar hilera clase A
         if (level == 4) {
             g.setColor(Color.WHITE);
+            g.drawString("Actual Row: Class A", 10, 20);
+            g.drawString("Next Row: Class B", 10, 40);
+
+            try {
+
+                for (int index = 0; index < simpleList.Size(); index++) {
+                    simpleList.getInPosition(index).getEnemy().draw(g);
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } //FIN dibujar hilera clase A
+        
+        
+
+         //Inicio dibujar hilera clase B
+        if (level == 5) {
+            g.setColor(Color.WHITE);
             g.drawString("Actual Row: Class B", 10, 20);
-            g.drawString("Next Row: Class C", 10, 40);
+            g.drawString("Next Row: Class E", 10, 40);
 
             try {
 
@@ -309,26 +410,10 @@ public class Panel extends JPanel {
             } catch (Exception ex) {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }  //FIN dibujar hilera clase B
         
         
-        
-        
-        
-        /**
-        try {
-         
-            for (int index = 0; index < simpleList.Size(); index++) {
-                simpleList.getInPosition(index).getEnemy().draw(g);
-            }
 
-        } catch (IndexOutOfBoundsException e) {
-        } catch (Exception ex) {
-            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-        }**/
-        
-        
-        
         
          // Draw a bullet on space bar press
         if (controller.getKeyStatus(32)) {
@@ -410,7 +495,9 @@ public class Panel extends JPanel {
         } catch (FileNotFoundException e) {
         }
 
-                if (level == 5) {
+        
+             // Inicio Hacer movimiento hilera C
+                if (level == 1) {
             // Makes enemies move and change direction at borders
             if ((circularList.MayorPosicionX()>760 || circularList.MenorPosicionX()<0)) {
                 for (int index = 0; index < circularList.Size(); index++) {
@@ -423,10 +510,28 @@ public class Panel extends JPanel {
                 }
             }
 
-        }
+        }// FIN Hacer movimiento hilera C
         
+        // Inicio Hacer movimiento hilera D
+            if (level == 3) {
+            // Makes enemies move and change direction at borders
+            if ((circularList.MayorPosicionX()>760 || circularList.MenorPosicionX()<0)) {
+                for (int index = 0; index < circularList.Size(); index++) {
+                    circularList.getInPosition(index).getEnemy().setXVelocity(circularList.getInPosition(index).getEnemy().getXVelocity() * -1);
+                    circularList.getInPosition(index).getEnemy().setYPosition(circularList.getInPosition(index).getEnemy().getYPosition() + 10);
+                }
+            } else {
+                for (int index = 0; index < circularList.Size(); index++) {
+                    circularList.getInPosition(index).getEnemy().move();
+                }
+            }
+
+        }// fin Hacer movimiento hilera D
+            
+             
         
-        if (level == 2 || level == 3) {
+        // Inicio Hacer movimiento hilera A y BASIC
+        if (level == 4 || level == 2) {
             // Makes enemies move and change direction at borders
             if ((simpleList.MayorPosicionX()>760 || simpleList.MenorPosicionX()<0)) {
                 for (int index = 0; index < simpleList.Size(); index++) {
@@ -439,9 +544,12 @@ public class Panel extends JPanel {
                 }
             }
 
-        }
+        } // FIN Hacer movimiento hilera A y BASIC
         
-        if (level == 4) {
+        
+        
+        // Inicio Hacer movimiento hilera B
+        if (level == 5) {
 
             /// Makes enemies move and change direction at borders
             if (doubleList.MayorPosicionX() > 760 || doubleList.MenorPosicionX() < 0) {
@@ -470,30 +578,15 @@ public class Panel extends JPanel {
 
                 }
             }
-        }
+        }   // FIN Hacer movimiento hilera B
 
 
-        
-        
-        /**
-        // Makes enemies move and change direction at borders
-        if ((simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXPosition() + simpleList.getInPosition(simpleList.Size() - 1).getEnemy().getXVelocity()) > 760 || (simpleList.getInPosition(0).getEnemy().getXPosition() + simpleList.getInPosition(0).getEnemy().getXVelocity()) < 0) {
-            for (int index = 0; index < simpleList.Size(); index++) {
-                simpleList.getInPosition(index).getEnemy().setXVelocity(simpleList.getInPosition(index).getEnemy().getXVelocity() * -1);
-                simpleList.getInPosition(index).getEnemy().setYPosition(simpleList.getInPosition(index).getEnemy().getYPosition() + 10);
-            }
-        }else {
-            for (int index = 0; index < simpleList.Size(); index++) {
-                simpleList.getInPosition(index).getEnemy().move();
-            }
-        }
-        **/
         
         
         
         
        
-        // Move bullet
+        // Inicio  Move bullet
         if (bullet != null) 
         {
             bullet.setYPosition(bullet.getYPosition() - 15);
@@ -504,6 +597,7 @@ public class Panel extends JPanel {
             }
             
             
+                         /// Inicio del revisión de colisiones en la hilera C
                        if (level == 1) {
                 // Checks for collisions with enemies
                 for (int ind = 0; ind < circularList.Size(); ind++) {
@@ -513,7 +607,7 @@ public class Panel extends JPanel {
                         newBulletCanFire = true;
 
                         //MovingObject enemy1;
-                        if (circularList.getInPosition(ind).getEnemy().vida != 1) {
+                        if (circularList.getInPosition(ind).getEnemy().vivo == false) {
                             hitMarker = true;
                             markerX = circularList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+1000" spawns off of
                             markerY = circularList.getInPosition(ind).getEnemy().getYPosition();
@@ -547,7 +641,9 @@ public class Panel extends JPanel {
                             }
                         } else {
 
+                            
                             score += 100;
+                            //System.out.println("ind"+ind);
                             hitMarker = true;
                             markerX = circularList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
                             markerY = circularList.getInPosition(ind).getEnemy().getYPosition();
@@ -559,12 +655,81 @@ public class Panel extends JPanel {
                     }
 
                 }
-            }
+            } /// FIN  del revisión de colisiones en la hilera C
+            
+            
+            /// Inicio del revisión de colisiones en la hilera D
+           if (level == 3) {
+                // Checks for collisions with enemies
+                for (int ind = 0; ind < circularList.Size(); ind++) {
+
+                    if (bullet.Colliding(circularList.getInPosition(ind).getEnemy())) {
+                        bullet = new Bullet(0, 0, 0, null);
+                        newBulletCanFire = true;
+
+                        //MovingObject enemy1;
+                        if (circularList.getInPosition(ind).getEnemy().vivo == true) {
+                            hitMarker = true;
+                            numberVidas -= 1;
+                            System.out.println("Posición del jefe y disminución de vida");
+                            System.out.println(ind);
+                            System.out.println(numberVidas);
+
+                            if (numberVidas == 0) {
+                                hitMarker = true;
+                                score += 1000;
+                                do
+                                   numberR = generadorAleatorios.nextInt(circularList.Size());
+                                while (numberR== ind && circularList.Size()!=1);
+
+                                
+                                numberVidas = (int) (Math.random() * bossHealth) + 1;
+                                if (numberVidas == 1) {
+                                    numberVidas += 1;
+
+                                } else {
+
+                                }
+                                
+                                circularList.getInPosition(ind).getEnemy().vida = numberVidas;
+                                circularList.intercambiar(ind, numberR);
+                                //circularList.remove(numberR);
+                                circularList.remove(numberR);
+                                //System.out.println("paso cambio");
+
+                            }
+                        } else {
+                            
+                            circularList.getInPosition(ind).getEnemy().vida -= 1;
+                            System.out.println("Posición y disminución de vida");
+                            System.out.println(ind);
+                            System.out.println(circularList.getInPosition(ind).getEnemy().vida);
+                            if (circularList.getInPosition(ind).getEnemy().vida == 0) {
+                               
+                                score += 500;
+                                hitMarker = true;
+                 
+
+                                circularList.remove(ind);
+
+                            }
+
+                    }
+
+                }
+            }}  /// FIN de la revisión de colisiones en la hilera D.
+           
+           
+           
+            
+
 
             
             
             
-           if(level==3 || level==2){
+                       
+                       /// Inicio del revisión de colisiones en las hileras basic y A
+           if(level==4 || level==2){
             // Checks for collisions with enemies
             for (int ind = 0; ind < simpleList.Size(); ind++) {
                 if (bullet.Colliding(simpleList.getInPosition(ind).getEnemy())) {
@@ -572,7 +737,7 @@ public class Panel extends JPanel {
                     newBulletCanFire = true;
 
                     // Updates score for normal levels
-                    if (level == 3) {
+                    if (level == 2) {
                         score += 100;
                         hitMarker = true;
                         markerX = simpleList.getInPosition(ind).getEnemy().getXPosition(); // Gets positions that the "+ 100" spawns off of
@@ -581,7 +746,7 @@ public class Panel extends JPanel {
                         //System.out.println(simpleList.Size());
 
                     }
-                    if (level == 2) {
+                    if (level == 4) {
                         //MovingObject enemy1;
                         if (simpleList.getInPosition(ind).getEnemy().vida != 1) {
                             hitMarker = true;
@@ -607,10 +772,12 @@ public class Panel extends JPanel {
                     }
                 }
 
-            }}
+            }}  /// FIN del revisión de colisiones en las hileras basic y A
             
             
-            if (level == 4) {
+           
+            /// Inicio del revisión de colisiones en la hilera B
+            if (level == 5) {
                 // Checks for collisions with enemies
                 for (int ind = 0; ind < doubleList.Size(); ind++) {
                     
@@ -645,14 +812,13 @@ public class Panel extends JPanel {
                     }
 
                 }
-            }
+            }  /// Inicio del revisión de colisiones en la hilra B
                 
-        } 
+        }  // FIn del Move bullet 
         
         
-        
-                
-        if (level == 5) {
+                 //Paso al siguiente nivel en hilera C
+        if (level == 1) {
             //Destroys shields if aliens collide with them
             for (int input = 0; input < circularList.Size(); input++) {
 
@@ -686,15 +852,100 @@ public class Panel extends JPanel {
 
             // Goes to next level, resets all lists, sets all counters to correct values
             if (circularList.isEmpty() || circularList.Size()==0) {
+                circularList.clear();
                 level += 1;
                 setup();
             }
-        }
+        } //Paso al siguiente nivel en hilera C
+        
+        //Paso al siguiente nivel en hilera D
+               if (level == 3) {
+            //Destroys shields if aliens collide with them
+            for (int input = 0; input < circularList.Size(); input++) {
+
+                // If aliens exceed this X Position, you reset the level and lose a life
+                if (circularList.getInPosition(input).getEnemy().getYPosition() + 50 >= 750) {
+                    circularList.clear();
+
+                    numberOfLives = 0;
+
+                }
+            }
+
+            if (numberOfLives == 0) {
+
+                int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You lost the game with " + score + " points", 0);
+                // If they choose to play again, this resets every element in the game
+                if (answer == 0) {
+                    circularList.clear();
+                    score = 0;
+                    level = 1;
+                    numberOfLives = 1;
+                    newBulletCanFire = true;
+                    newBeamCanFire = true;
+                    setup();
+                }
+                // If they choose not to play again, it closes the game
+                if (answer == 1) {
+                    System.exit(0);
+                }
+            }
+
+            // Goes to next level, resets all lists, sets all counters to correct values
+            if (circularList.isEmpty() || circularList.Size()==0) {
+                circularList.clear();
+                level += 1;
+                setup();
+            }
+        }  //Paso al siguiente nivel en hilera D
+               
+               
+               
+        
+        //Paso al siguiente nivel en hilera A y BASIC
+        if (level == 2 || level == 4) {
+            //Destroys shields if aliens collide with them
+            for (int input = 0; input < simpleList.Size(); input++) {
+
+                // If aliens exceed this X Position, you reset the level and lose a life
+                if (simpleList.getInPosition(input).getEnemy().getYPosition() + 50 >= 750) {
+                    simpleList.clear();
+
+                    numberOfLives = 0;
+
+                }
+            }
+            if (numberOfLives == 0) {
+
+                int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You lost the game with " + score + " points", 0);
+                // If they choose to play again, this resets every element in the game
+                if (answer == 0) {
+                    simpleList.clear();
+                    score = 0;
+                    level = 1;
+                    numberOfLives = 1;
+                    newBulletCanFire = true;
+                    newBeamCanFire = true;
+                    setup();
+                }
+                // If they choose not to play again, it closes the game
+                if (answer == 1) {
+                    System.exit(0);
+                }
+            }
+
+            // Goes to next level, resets all lists, sets all counters to correct values
+            if (simpleList.isEmpty()) {
+                level += 1;
+                setup();
+            }
+        }  //Paso al siguiente nivel en hilera A y BASIC
         
         
         
         
-        if (level == 4) {
+        //Paso al siguiente nivel en hilera B
+        if (level == 5) {
             //Destroys shields if aliens collide with them
             for (int input = 0; input < doubleList.Size(); input++) {
 
@@ -731,46 +982,11 @@ public class Panel extends JPanel {
                 level += 1;
                 setup();
             }
-        }
-
+        } //Paso al siguiente nivel en hilera B
         
-        if (level == 2 || level == 3) {
-            //Destroys shields if aliens collide with them
-            for (int input = 0; input < simpleList.Size(); input++) {
+        
 
-                // If aliens exceed this X Position, you reset the level and lose a life
-                if (simpleList.getInPosition(input).getEnemy().getYPosition() + 50 >= 750) {
-                    simpleList.clear();
 
-                    numberOfLives = 0;
-
-                }
-            }
-            if (numberOfLives == 0) {
-
-                int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?", "You lost the game with " + score + " points", 0);
-                // If they choose to play again, this resets every element in the game
-                if (answer == 0) {
-                    simpleList.clear();
-                    score = 0;
-                    level = 1;
-                    numberOfLives = 1;
-                    newBulletCanFire = true;
-                    newBeamCanFire = true;
-                    setup();
-                }
-                // If they choose not to play again, it closes the game
-                if (answer == 1) {
-                    System.exit(0);
-                }
-            }
-
-            // Goes to next level, resets all lists, sets all counters to correct values
-            if (simpleList.isEmpty()) {
-                level += 1;
-                setup();
-            }
-        }
             
         
         
